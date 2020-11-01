@@ -1,4 +1,4 @@
-﻿Shader "Routine/Solarizer"
+﻿Shader "Routine/Posterize"
 {
     Properties
     {

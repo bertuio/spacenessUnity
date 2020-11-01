@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
-public class MyImageEffect : MonoBehaviour
+public class FogImageEffect : MonoBehaviour
 {
     [SerializeField]
     private Shader shader;
@@ -16,7 +16,6 @@ public class MyImageEffect : MonoBehaviour
     // OnRenderImage() is called when the camera has finished rendering.
     private void OnRenderImage(RenderTexture src, RenderTexture dst)
     {
-
         Graphics.Blit(src, dst, fogMaterial);
     }
 }
