@@ -7,6 +7,7 @@
         _Bends("Num of bends", Range(2,8)) = 3
         _Smoothing("Smoothing", Range(0,1)) = 0.05
         _IsGrayscale("Grayscale", Int) = 1
+        _IsGrayscaleExcludeLight("ExcludeLightGrayscale", Int) = 0
     }
     SubShader
     {
@@ -34,6 +35,12 @@
         int _Bends;
         float _Smoothing;
         int _IsGrayscale;
+        int _IsGrayscaleExcludeLight;
+
+        float colorIntensity(float3 col)
+        {
+            return (col.r + col.g + col.b) / 3 ;
+        }
 
         float Lerp(float a, float b, float t) 
         {
@@ -54,16 +61,15 @@
             float4 startFadePositionColor = (ceiled - _Smoothing) / _Bends;
             float4 startFadeColor = (ceiled-1) / _Bends;
             float4 endFadeColor = ceiled / _Bends;
-            float intensity = (col.r + col.b + col.g) / 3 - 0.1f;
-            col = Lerp(startFadeColor, endFadeColor, smoothstep(startFadePositionColor, endFadeColor, grayscale)) * (_IsGrayscale? half4(intensity.xxx, col.a): col);
-            
+            float intensity = colorIntensity(col);
+            col = Lerp(startFadeColor, endFadeColor, smoothstep(startFadePositionColor, endFadeColor, grayscale)) * (_IsGrayscale*max(1-_IsGrayscaleExcludeLight,0)? half4(intensity.xxx, col.a): col);
         }
 
         void surf (Input IN, inout SurfaceOutput o)
         {
             // Albedo comes from a texture tinted by color
             fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
-            o.Albedo = c.rgb;
+            o.Albedo = (_IsGrayscale * _IsGrayscaleExcludeLight) ? colorIntensity(c).xxx :c.rgb;
             // Metallic and smoothness come from slider variables
             //o.Metallic = _Metallic;
             //o.Smoothness = _Glossiness;

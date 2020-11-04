@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,62 +8,61 @@ public class Character : MonoBehaviour
     private class CharacterStateMachine
     {
         [SerializeField]
-        private float maxClickDelay;
-        private float lastClickTime;
-        private bool isWalking;
+        private float _maxClickDelay;
+        private float _lastClickTime;
+        private bool _isWalking;
 
-        private delegate void State();
-        private State activeState;
+        private Action activeState;
 
         public CharacterStateMachine()
         {
             setActiveState(idle);
-            maxClickDelay = 0.85f;
-            lastClickTime = Time.time;
-            isWalking = false;
+            _maxClickDelay = 0.85f;
+            _lastClickTime = Time.time;
+            _isWalking = false;
         }
         void idle()
         {
-            isWalking = false;
+            _isWalking = false;
             if (Input.GetMouseButtonDown(0))
             {
-                lastClickTime = Time.time;
+                _lastClickTime = Time.time;
                 setActiveState(walk_rightClick);
             }
         }
         void walk_leftClick()
         {
-            isWalking = true;
+            _isWalking = true;
             if (Input.GetMouseButtonDown(0)) {
-                lastClickTime = Time.time;
+                _lastClickTime = Time.time;
                 setActiveState(walk_rightClick);
             }
-            if (Time.time - lastClickTime > maxClickDelay)
+            if (Time.time - _lastClickTime > _maxClickDelay)
             {
                 setActiveState(idle);
             }
         }
         void walk_rightClick()
         {
-            isWalking = true;
+            _isWalking = true;
             if (Input.GetMouseButtonDown(1))
             {
-                lastClickTime = Time.time;
+                _lastClickTime = Time.time;
                 setActiveState(walk_leftClick);
             }
-            if (Time.time - lastClickTime > maxClickDelay)
+            if (Time.time - _lastClickTime > _maxClickDelay)
             {
                 setActiveState(idle);
             }
 
         }
-        void setActiveState(State state)
+        void setActiveState(Action state)
         {
             activeState = state;
         }
         public bool IsWalking 
         {
-            get { return isWalking; }
+            get { return _isWalking; }
         }
         public void Update()
         {
@@ -71,53 +71,53 @@ public class Character : MonoBehaviour
     }
 
     [SerializeField]
-    private GameObject mainCam;
-    private Vector3 cameraLinearOffset;
-    private Quaternion cameraAngularOffset;
-    private CharacterController cc;
+    private GameObject _mainCam;
+    private Vector3 _cameraLinearOffset;
+    private Quaternion _cameraAngularOffset;
+    private CharacterController _characterController;
     [SerializeField]
-    private float speed;
+    private float _speed;
     [SerializeField]
-    private float rotationSpeed;
+    private float _rotationSpeed;
     [SerializeField]
-    private float linearSmoothRate;
+    private float _linearSmoothRate;
     [SerializeField]
-    private float angularSmoothRate;
-    private float nodAngle;
-    private CharacterStateMachine CSM;
-    private Animator anim;
+    private float _angularSmoothRate;
+    private float _nodAngle;
+    private CharacterStateMachine _CSM;
+    private Animator _anim;
     // Start is called before the first frame update
     void Start()
     {
-        cameraLinearOffset = transform.InverseTransformPoint(mainCam.transform.position);
-        cameraAngularOffset = Quaternion.Inverse(transform.rotation)*mainCam.transform.rotation;
-        cc = GetComponent<CharacterController>();
-        anim = GetComponent<Animator>();
-        CSM = new CharacterStateMachine();
+        _cameraLinearOffset = transform.InverseTransformPoint(_mainCam.transform.position);
+        _cameraAngularOffset = Quaternion.Inverse(transform.rotation)* _mainCam.transform.rotation;
+        _characterController = GetComponent<CharacterController>();
+        _anim = GetComponent<Animator>();
+        _CSM = new CharacterStateMachine();
     }
 
     void Update() 
     {
         ComputeCameraTransform();
-        PerformCharacterMoevement();
-        CSM.Update();
+        PerformCharacterMovement();
+        _CSM.Update();
     }
-    void PerformCharacterMoevement()
+    void PerformCharacterMovement()
     {
-        cc.transform.rotation = Quaternion.Euler(new Vector3(0, rotationSpeed, 0) * Input.GetAxis("Mouse X") * Time.deltaTime) * cc.transform.rotation;
-        anim.SetBool("Walking", CSM.IsWalking);
-        if (CSM.IsWalking)
+        _characterController.transform.rotation = Quaternion.Euler(new Vector3(0, _rotationSpeed, 0) * Input.GetAxis("Mouse X") * Time.deltaTime) * _characterController.transform.rotation;
+        _anim.SetBool("Walking", _CSM.IsWalking);
+        if (_CSM.IsWalking)
         {
-            cc.Move(transform.forward * speed * Time.deltaTime);
+            _characterController.Move(transform.forward * _speed * Time.deltaTime);
         }
     }
 
     void ComputeCameraTransform() 
     {
-        Vector3 newCameraPosition = Vector3.Lerp(mainCam.transform.position, transform.TransformPoint(cameraLinearOffset), linearSmoothRate);
-        mainCam.transform.position = newCameraPosition;
-        mainCam.transform.rotation = Quaternion.Lerp(mainCam.transform.rotation, transform.rotation * cameraAngularOffset, angularSmoothRate);
-        nodAngle += Input.GetAxis("Mouse Y") * rotationSpeed;
+        Vector3 newCameraPosition = Vector3.Lerp(_mainCam.transform.position, transform.TransformPoint(_cameraLinearOffset), _linearSmoothRate);
+        _mainCam.transform.position = newCameraPosition;
+        _mainCam.transform.rotation = Quaternion.Lerp(_mainCam.transform.rotation, transform.rotation * _cameraAngularOffset, _angularSmoothRate);
+        _nodAngle += Input.GetAxis("Mouse Y") * _rotationSpeed;
         //TODO: add nod rotation
     }
 }
