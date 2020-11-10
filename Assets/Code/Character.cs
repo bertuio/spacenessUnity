@@ -10,7 +10,8 @@ public class Character : MonoBehaviour
         [SerializeField]
         private float _maxClickDelay;
         private float _lastClickTime;
-        private bool _isWalking;
+        public bool IsWalking { get; private set; }
+        public bool IsLocked { get; private set; }
 
         private Action activeState;
 
@@ -19,11 +20,11 @@ public class Character : MonoBehaviour
             setActiveState(idle);
             _maxClickDelay = 0.85f;
             _lastClickTime = Time.time;
-            _isWalking = false;
+            IsWalking = false;
         }
         void idle()
         {
-            _isWalking = false;
+            IsWalking = false;
             if (Input.GetMouseButtonDown(0))
             {
                 _lastClickTime = Time.time;
@@ -32,7 +33,7 @@ public class Character : MonoBehaviour
         }
         void walk_leftClick()
         {
-            _isWalking = true;
+            IsWalking = true;
             if (Input.GetMouseButtonDown(0)) {
                 _lastClickTime = Time.time;
                 setActiveState(walk_rightClick);
@@ -44,7 +45,7 @@ public class Character : MonoBehaviour
         }
         void walk_rightClick()
         {
-            _isWalking = true;
+            IsWalking = true;
             if (Input.GetMouseButtonDown(1))
             {
                 _lastClickTime = Time.time;
@@ -56,13 +57,23 @@ public class Character : MonoBehaviour
             }
 
         }
+        private void locked() 
+        {
+            IsWalking = false;
+        }
+        public void SetLock(bool isLocked) 
+        {
+            if (isLocked)
+            {
+                setActiveState(locked);
+            }
+            else { setActiveState(idle); }
+            IsLocked = isLocked;
+        }
+
         void setActiveState(Action state)
         {
             activeState = state;
-        }
-        public bool IsWalking 
-        {
-            get { return _isWalking; }
         }
         public void Update()
         {
@@ -71,40 +82,39 @@ public class Character : MonoBehaviour
     }
 
     [SerializeField]
-    private GameObject _mainCam;
-    private Vector3 _cameraLinearOffset;
-    private Quaternion _cameraAngularOffset;
+    private CameraController _attachedCameraController;
     private CharacterController _characterController;
     [SerializeField]
     private float _speed;
     [SerializeField]
     private float _rotationSpeed;
-    [SerializeField]
-    private float _linearSmoothRate;
-    [SerializeField]
-    private float _angularSmoothRate;
-    private float _nodAngle;
     private CharacterStateMachine _CSM;
     private Animator _anim;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private GameObject _head;
+
+    public GameObject Head { get => _head; private set { } }
+    public CameraController AttachedCameraController { get => _attachedCameraController; private set { }}
+
+    private void Start()
     {
-        _cameraLinearOffset = transform.InverseTransformPoint(_mainCam.transform.position);
-        _cameraAngularOffset = Quaternion.Inverse(transform.rotation)* _mainCam.transform.rotation;
+        _attachedCameraController.SetCameraChasingGoal(transform);
         _characterController = GetComponent<CharacterController>();
         _anim = GetComponent<Animator>();
         _CSM = new CharacterStateMachine();
     }
 
-    void Update() 
+    private void Update() 
     {
-        ComputeCameraTransform();
         PerformCharacterMovement();
         _CSM.Update();
     }
-    void PerformCharacterMovement()
+    private void PerformCharacterMovement()
     {
-        _characterController.transform.rotation = Quaternion.Euler(new Vector3(0, _rotationSpeed, 0) * Input.GetAxis("Mouse X") * Time.deltaTime) * _characterController.transform.rotation;
+        if (!_CSM.IsLocked)
+        {
+            _characterController.transform.rotation = Quaternion.Euler(new Vector3(0, _rotationSpeed, 0) * Input.GetAxis("Mouse X") * Time.deltaTime) * _characterController.transform.rotation;
+        }
         _anim.SetBool("Walking", _CSM.IsWalking);
         if (_CSM.IsWalking)
         {
@@ -112,12 +122,8 @@ public class Character : MonoBehaviour
         }
     }
 
-    void ComputeCameraTransform() 
+    public void SetMovementLock(bool locked) 
     {
-        Vector3 newCameraPosition = Vector3.Lerp(_mainCam.transform.position, transform.TransformPoint(_cameraLinearOffset), _linearSmoothRate);
-        _mainCam.transform.position = newCameraPosition;
-        _mainCam.transform.rotation = Quaternion.Lerp(_mainCam.transform.rotation, transform.rotation * _cameraAngularOffset, _angularSmoothRate);
-        _nodAngle += Input.GetAxis("Mouse Y") * _rotationSpeed;
-        //TODO: add nod rotation
+        _CSM.SetLock(locked);
     }
 }

@@ -1412,11 +1412,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94f7936af54cbcd49bbe1995df4108b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCam: {fileID: 0}
-  speed: 2.4
-  rotationSpeed: 190
-  linearSmoothRate: 0.03
-  angularSmoothRate: 0.05
+  _attachedCameraController: {fileID: 0}
+  _speed: 3
+  _rotationSpeed: 335
+  _head: {fileID: 5104968361981717450}
 --- !u!1 &5104968363204099775
 GameObject:
   m_ObjectHideFlags: 0
@@ -1564,7 +1563,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0cc6aad4ca709354a8833f24804ee5d0, type: 2}
+  - {fileID: 2100000, guid: 427cb7218d4db204dba70fef22c1b078, type: 2}
   - {fileID: 2100000, guid: c8f368d4f0490d44994721237229a0c8, type: 2}
   - {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 2100000, guid: 0cc6aad4ca709354a8833f24804ee5d0, type: 2}
