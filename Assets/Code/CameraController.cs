@@ -20,6 +20,17 @@ public class CameraController : MonoBehaviour
     private Minigame _currentMinigame;
     private Action _cameraBehaviour;
 
+    public float LinearSmoothRate
+    {
+        get { return _linearSmoothRate; }
+        private set { }
+    }
+    public float AngularSmoothRate
+    {
+        get { return _angularSmoothRate; }
+        private set { }
+    }
+
     private void Update()
     {
         _cameraBehaviour?.Invoke();

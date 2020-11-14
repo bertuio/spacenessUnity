@@ -6,9 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(Minigame))]
 public abstract class Minigame : MonoBehaviour
 {
+    public Transform minigameCameraTransform;
     public CameraController charachterCameraController { get; private set; }
     private Character _enteredCharacter;
-    private GameObject headbone;
     private MinigameServiceKeyboardHandler bufferZoneKeyboardHandler;
     private MinigameServiceKeyboardHandler minigameStartedKeyboardHandler;
     private MinigameServiceKeyboardHandler currentKeyboardHandler;
@@ -16,49 +16,42 @@ public abstract class Minigame : MonoBehaviour
     private GUIStyle style = new GUIStyle();
     public virtual void CameraBehaviour()
     {
-        charachterCameraController.transform.SetPositionAndRotation(headbone.transform.position, headbone.transform.rotation);
+        Transform cameraTransform = charachterCameraController.transform;
+        cameraTransform.position = Vector3.Lerp(cameraTransform.position, minigameCameraTransform.position, charachterCameraController.LinearSmoothRate/2);
+        cameraTransform.rotation = Quaternion.Lerp(cameraTransform.rotation, minigameCameraTransform.rotation, charachterCameraController.AngularSmoothRate/2);
     }
 
     private void Start()
     {
         style.normal.textColor = new Color(0, 0, 0);
         style.alignment = TextAnchor.LowerCenter;
-        style.fontSize = 22;
+        style.fontSize = 25;
 
-        minigameStartedKeyboardHandler = new MinigameServiceKeyboardHandler("Escape", ExitGame, PrintHintEnd);
-        bufferZoneKeyboardHandler = new MinigameServiceKeyboardHandler("Space", InitializeGame, PrintHintStart);
+        minigameStartedKeyboardHandler = new MinigameServiceKeyboardHandler("Escape", ExitGame, "Press Esc to finish", style);
+        bufferZoneKeyboardHandler = new MinigameServiceKeyboardHandler("Space", InitializeGame, "Press Space to start", style);
         outerZoneKeyboardHandler = new MinigameServiceKeyboardHandler("", delegate { });
         currentKeyboardHandler = outerZoneKeyboardHandler;
     }
-    //Исправить дублирование
-    private void PrintHintStart()
-    {
-        GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height - 50, 200, 50), "Press Space to start", style);
-    }
-    private void PrintHintEnd()
-    {
-        GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height - 50, 200, 50), "Press Esc to finish", style);
-    }
+
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out _enteredCharacter))
-        {
-            //UI
-            SetUpEnteredCharacter();
-            OnEnteredAreaEvent(_enteredCharacter);
-            currentKeyboardHandler = bufferZoneKeyboardHandler;
-        }
+        triggerZoneEventHandle(other, bufferZoneKeyboardHandler);
     }
 
     private void OnTriggerExit(Collider other)
     {
+        triggerZoneEventHandle(other, outerZoneKeyboardHandler);
+    }
+
+    private void triggerZoneEventHandle(Collider other, MinigameServiceKeyboardHandler handler) 
+    {
+
         if (other.TryGetComponent(out _enteredCharacter))
         {
-            //UI
             SetUpEnteredCharacter();
             OnEnteredAreaEvent(_enteredCharacter);
-            currentKeyboardHandler = outerZoneKeyboardHandler;
+            currentKeyboardHandler = handler;
         }
     }
 
@@ -83,7 +76,6 @@ public abstract class Minigame : MonoBehaviour
 
     private void SetUpEnteredCharacter()
     {
-        headbone = _enteredCharacter.Head;
         charachterCameraController = _enteredCharacter.AttachedCameraController;
     }
 
@@ -95,7 +87,7 @@ public abstract class Minigame : MonoBehaviour
 
     public virtual void OnEnteredAreaEvent(Character character) 
     {
-    
+        
     }
 
     public abstract void StartGame();
@@ -104,26 +96,35 @@ public abstract class Minigame : MonoBehaviour
     {
         private Action callback;
         private Event keyboardEvent;
-        private Action handlerAction;
-        public MinigameServiceKeyboardHandler(string stringEvent, Action callback, Action handlerAction) 
+        private string hint;
+        private GUIStyle style;
+        public Action UpdateHandler;
+        public MinigameServiceKeyboardHandler(string stringEvent, Action callback, string hint, GUIStyle style) 
         {
             this.callback = callback;
             keyboardEvent = Event.KeyboardEvent(stringEvent);
-            this.handlerAction = handlerAction;
+            this.hint = hint;
+            this.style = style;
+            UpdateHandler = UpdateHandlerWithHint;
         }
         public MinigameServiceKeyboardHandler(string stringEvent, Action callback)
         {
             this.callback = callback;
             keyboardEvent = Event.KeyboardEvent(stringEvent);
+            UpdateHandler = UpdateHandlerWithoutHint;
         }
 
-        public void UpdateHandler()
+        private void UpdateHandlerWithoutHint()
         {
-            handlerAction?.Invoke();
             if (Event.current.Equals(keyboardEvent))
             {
                 callback();
             }
+        }
+        private void UpdateHandlerWithHint() 
+        {
+            GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height - 50, 200, 50), hint, style);
+            UpdateHandlerWithoutHint();
         }
     }
 }

@@ -90,10 +90,6 @@ public class Character : MonoBehaviour
     private float _rotationSpeed;
     private CharacterStateMachine _CSM;
     private Animator _anim;
-    [SerializeField]
-    private GameObject _head;
-
-    public GameObject Head { get => _head; private set { } }
     public CameraController AttachedCameraController { get => _attachedCameraController; private set { }}
 
     private void Start()
