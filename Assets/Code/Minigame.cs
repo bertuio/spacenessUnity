@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Minigame))]
 public abstract class Minigame : MonoBehaviour
 {
-    public Transform minigameCameraTransform;
+    public MinigameCamera minigameCameraTransform;
     public CameraController charachterCameraController { get; private set; }
     private Character _enteredCharacter;
     private MinigameServiceKeyboardHandler bufferZoneKeyboardHandler;
@@ -17,8 +17,8 @@ public abstract class Minigame : MonoBehaviour
     public virtual void CameraBehaviour()
     {
         Transform cameraTransform = charachterCameraController.transform;
-        cameraTransform.position = Vector3.Lerp(cameraTransform.position, minigameCameraTransform.position, charachterCameraController.LinearSmoothRate/2);
-        cameraTransform.rotation = Quaternion.Lerp(cameraTransform.rotation, minigameCameraTransform.rotation, charachterCameraController.AngularSmoothRate/2);
+        cameraTransform.position = Vector3.Lerp(cameraTransform.position, minigameCameraTransform.transform.position, charachterCameraController.LinearSmoothRate/2);
+        cameraTransform.rotation = Quaternion.Lerp(cameraTransform.rotation, minigameCameraTransform.transform.rotation, charachterCameraController.AngularSmoothRate/2);
     }
 
     private void Start()
@@ -32,7 +32,16 @@ public abstract class Minigame : MonoBehaviour
         outerZoneKeyboardHandler = new MinigameServiceKeyboardHandler("", delegate { });
         currentKeyboardHandler = outerZoneKeyboardHandler;
     }
+    private void triggerZoneEventHandle(Collider other, MinigameServiceKeyboardHandler handler)
+    {
 
+        if (other.TryGetComponent(out _enteredCharacter))
+        {
+            SetUpEnteredCharacter();
+            OnEnteredAreaEvent(_enteredCharacter);
+            currentKeyboardHandler = handler;
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -42,17 +51,6 @@ public abstract class Minigame : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         triggerZoneEventHandle(other, outerZoneKeyboardHandler);
-    }
-
-    private void triggerZoneEventHandle(Collider other, MinigameServiceKeyboardHandler handler) 
-    {
-
-        if (other.TryGetComponent(out _enteredCharacter))
-        {
-            SetUpEnteredCharacter();
-            OnEnteredAreaEvent(_enteredCharacter);
-            currentKeyboardHandler = handler;
-        }
     }
 
     private void ExitGame() 
@@ -84,10 +82,9 @@ public abstract class Minigame : MonoBehaviour
         charachterCameraController?.SetCameraMinigame(this);
         _enteredCharacter.SetMovementLock(true);
     }
-
-    public virtual void OnEnteredAreaEvent(Character character) 
+    public virtual void OnEnteredAreaEvent(Character character)
     {
-        
+
     }
 
     public abstract void StartGame();
