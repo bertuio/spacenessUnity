@@ -35,10 +35,10 @@ MonoBehaviour:
     value: 1
   sensitivityDepth:
     overrideState: 1
-    value: 0.54
+    value: 0.41
   sensitivityNormals:
     overrideState: 1
-    value: -1.21
+    value: -1.52
   lumThreshold:
     overrideState: 1
     value: 0.04
@@ -47,10 +47,10 @@ MonoBehaviour:
     value: 0.45
   sampleDist:
     overrideState: 1
-    value: 0.72
+    value: 1
   edgesOnly:
     overrideState: 1
-    value: 0.142
+    value: 0.152
   edgesOnlyBgColor:
     overrideState: 1
     value: {r: 1, g: 1, b: 1, a: 1}

@@ -7,7 +7,7 @@ public class Character : MonoBehaviour
 {
     private class CharacterStateMachine
     {
-        [SerializeField]
+        private Character _character;
         private float _maxClickDelay;
         private float _lastClickTime;
         public bool IsWalking { get; private set; }
@@ -15,14 +15,15 @@ public class Character : MonoBehaviour
 
         private Action activeState;
 
-        public CharacterStateMachine()
+        public CharacterStateMachine(Character character)
         {
             setActiveState(idle);
             _maxClickDelay = 0.85f;
             _lastClickTime = Time.time;
             IsWalking = false;
+            _character = character;
         }
-        void idle()
+        private void idle()
         {
             IsWalking = false;
             if (Input.GetMouseButtonDown(0))
@@ -31,31 +32,31 @@ public class Character : MonoBehaviour
                 setActiveState(walk_rightClick);
             }
         }
-        void walk_leftClick()
+        private void walk() 
         {
             IsWalking = true;
-            if (Input.GetMouseButtonDown(0)) {
-                _lastClickTime = Time.time;
-                setActiveState(walk_rightClick);
-            }
-            if (Time.time - _lastClickTime > _maxClickDelay)
+            if (Time.time - _lastClickTime > _maxClickDelay / _character._speedMultyplier)
             {
                 setActiveState(idle);
             }
         }
-        void walk_rightClick()
+        private void walk_leftClick()
         {
-            IsWalking = true;
+            if (Input.GetMouseButtonDown(0))
+            {
+                _lastClickTime = Time.time;
+                setActiveState(walk_rightClick);
+            }
+            walk();
+        }
+        private void walk_rightClick()
+        {
             if (Input.GetMouseButtonDown(1))
             {
                 _lastClickTime = Time.time;
                 setActiveState(walk_leftClick);
             }
-            if (Time.time - _lastClickTime > _maxClickDelay)
-            {
-                setActiveState(idle);
-            }
-
+            walk();
         }
         private void locked() 
         {
@@ -82,10 +83,14 @@ public class Character : MonoBehaviour
     }
 
     [SerializeField]
+    [Range(0,100)]
+    private int _health;
+    private float _speedMultyplier = 1;
+    [SerializeField]
     private CameraController _attachedCameraController;
     private CharacterController _characterController;
     [SerializeField]
-    private float _speed;
+    private float _baseSpeed;
     [SerializeField]
     private float _rotationSpeed;
     private CharacterStateMachine _CSM;
@@ -97,24 +102,32 @@ public class Character : MonoBehaviour
         _attachedCameraController.SetCameraChasingGoal(transform);
         _characterController = GetComponent<CharacterController>();
         _anim = GetComponent<Animator>();
-        _CSM = new CharacterStateMachine();
+        _CSM = new CharacterStateMachine(this);
     }
 
     private void Update() 
     {
         PerformCharacterMovement();
+        SetupSpeed();
         _CSM.Update();
     }
+
+    private void SetupSpeed()
+    {
+        _speedMultyplier = (float)(_health*0.75f+25) / 100;
+        _anim.speed = _speedMultyplier;
+    }
+
     private void PerformCharacterMovement()
     {
         if (!_CSM.IsLocked)
         {
-            _characterController.transform.rotation = Quaternion.Euler(new Vector3(0, _rotationSpeed, 0) * Input.GetAxis("Mouse X") * Time.deltaTime) * _characterController.transform.rotation;
+            _characterController.transform.rotation = Quaternion.Euler(new Vector3(0, _rotationSpeed*_speedMultyplier, 0) * Input.GetAxis("Mouse X") * Time.deltaTime) * _characterController.transform.rotation;
         }
         _anim.SetBool("Walking", _CSM.IsWalking);
         if (_CSM.IsWalking)
         {
-            _characterController.Move(transform.forward * _speed * Time.deltaTime);
+            _characterController.Move(transform.forward * _baseSpeed * _speedMultyplier * Time.deltaTime);
         }
     }
 

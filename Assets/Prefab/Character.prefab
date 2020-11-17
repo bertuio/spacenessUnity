@@ -1412,10 +1412,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94f7936af54cbcd49bbe1995df4108b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _health: 100
   _attachedCameraController: {fileID: 0}
-  _speed: 3
+  _baseSpeed: 3.5
   _rotationSpeed: 335
-  _head: {fileID: 5104968361981717450}
 --- !u!1 &5104968363204099775
 GameObject:
   m_ObjectHideFlags: 0
