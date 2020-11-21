@@ -21,7 +21,7 @@ public abstract class Minigame : MonoBehaviour
         cameraTransform.rotation = Quaternion.Lerp(cameraTransform.rotation, minigameCameraTransform.transform.rotation, charachterCameraController.AngularSmoothRate/2);
     }
 
-    private void Start()
+    private void Awake()
     {
         style.normal.textColor = new Color(0, 0, 0);
         style.alignment = TextAnchor.LowerCenter;

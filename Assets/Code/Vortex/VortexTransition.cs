@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class VortexTransition : MonoBehaviour
 {
-    [SerializeField]
-    private string scene;
     private Character character;
     private Vortex vortex;
 
@@ -19,9 +17,7 @@ public class VortexTransition : MonoBehaviour
     {
         if (other.TryGetComponent(out character))
         {
-            vortex.Block = true;
-            Time.timeScale = 1;
-            SceneManager.LoadScene(scene);
+            vortex.Teleport();
         }
     }
 }

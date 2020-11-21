@@ -50,7 +50,7 @@
                 fixed4 tex = tex2D(_MainTex, i.uv);
                 float depth = tex2D(_CameraDepthTexture, i.uv);
                 
-                depth = max(0,pow(depth + 0.95, 10) - 0.7);
+                depth = max(0,pow(depth + 0.8, 10) - 0.7);
                 float lum = (tex.r * 0.3 + tex.g * 0.59 + tex.b * 0.11)*depth;
                 return float4(tex.rgb*depth,tex.a);
             }

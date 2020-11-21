@@ -13,7 +13,6 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private float _angularSmoothRate;
 
-    public Material m_Mat;
     private float _nodAngle;
     private Transform _parentalTransform;
     private Vector3 _cameraLinearOffset;
