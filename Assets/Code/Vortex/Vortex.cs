@@ -19,6 +19,7 @@ public class Vortex : MonoBehaviour
 
     private Vector3 slowererCenter;
     private float slowererRadius;
+    private float ratio;
 
     private void Start()
     {
@@ -47,16 +48,30 @@ public class Vortex : MonoBehaviour
     {
         if (other.TryGetComponent(out character))
         {
-            Time.timeScale = 1;
+            UpdateTimescale(1);
+            UpdateFov(1);
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (character && !Block && other.gameObject == characterGo) 
+        if (character && !Block && other.gameObject == characterGo)
         {
-            float t = Vector3.Distance(slowererCenter, other.transform.position) / slowererRadius;
-            Time.timeScale = Mathf.Clamp(1/(1+Mathf.Exp(-7f*(t-0.7f))), 0.05f, 1f);
+            UpdateRatio(other.transform);
+            UpdateTimescale(ratio);
+            UpdateFov(ratio);
         }
+    }
+    private void UpdateRatio(Transform other) 
+    {
+        ratio = Vector3.Distance(slowererCenter, other.transform.position) / slowererRadius;
+    }
+    private void UpdateTimescale(float t)
+    {
+        Time.timeScale = Mathf.Clamp(1 / (1 + Mathf.Exp(-7f * (t - 0.7f))), 0.05f, 1f);
+    }
+    private void UpdateFov(float t)
+    {
+        character.AttachedCameraController.VortexAffect(Mathf.Clamp(t, 0.05f, 1f));
     }
 }

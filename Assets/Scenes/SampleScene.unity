@@ -2189,18 +2189,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 733613167997581820, guid: f126770876d310d49b4651b64e3a6806, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 733613167997581823, guid: f126770876d310d49b4651b64e3a6806, type: 3}
-      propertyPath: m_Depth
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 733613167997581823, guid: f126770876d310d49b4651b64e3a6806, type: 3}
-      propertyPath: m_ClearFlags
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 733613167999701308, guid: f126770876d310d49b4651b64e3a6806, type: 3}
       propertyPath: m_Name
       value: CharacterWithCamera
@@ -2248,14 +2236,6 @@ PrefabInstance:
     - target: {fileID: 733613167999701309, guid: f126770876d310d49b4651b64e3a6806, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 733613168116664873, guid: f126770876d310d49b4651b64e3a6806, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 733613168116664879, guid: f126770876d310d49b4651b64e3a6806, type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 55
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f126770876d310d49b4651b64e3a6806, type: 3}
@@ -2323,10 +2303,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5694254943232320724, guid: 792db2cd45cf45a44b5695f9ca4337ef, type: 3}
-      propertyPath: scene
-      value: Vortex1
-      objectReference: {fileID: 0}
     - target: {fileID: 5694254943355528869, guid: 792db2cd45cf45a44b5695f9ca4337ef, type: 3}
       propertyPath: m_Name
       value: Vortex
@@ -2381,14 +2357,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5694254943355528890, guid: 792db2cd45cf45a44b5695f9ca4337ef, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5694254943805256387, guid: 792db2cd45cf45a44b5695f9ca4337ef, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -5.92
-      objectReference: {fileID: 0}
-    - target: {fileID: 5694254945080361103, guid: 792db2cd45cf45a44b5695f9ca4337ef, type: 3}
-      propertyPath: LightsModule.enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

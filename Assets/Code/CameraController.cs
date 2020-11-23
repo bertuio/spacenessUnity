@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[RequireComponent(typeof(Camera))]
 public class CameraController : MonoBehaviour
 {
 
@@ -13,12 +13,26 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private float _angularSmoothRate;
 
+    private float defaultFov;
     private float _nodAngle;
     private Transform _parentalTransform;
     private Vector3 _cameraLinearOffset;
     private Quaternion _cameraAngularOffset;
     private Minigame _currentMinigame;
     private Action _cameraBehaviour;
+    private Camera camera;
+    private float targetFov;
+
+    public void VortexAffect(float t)
+    {
+        targetFov = defaultFov * (Mathf.Clamp(1.8f-Mathf.Pow(t,2),1,2));
+    }
+
+    private void Start()
+    {
+        camera = GetComponent<Camera>();
+        targetFov = defaultFov = camera.fieldOfView;
+    }
 
     public float LinearSmoothRate
     {
@@ -33,6 +47,7 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+        camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, targetFov, 0.02f);
         _cameraBehaviour?.Invoke();
     }
 
