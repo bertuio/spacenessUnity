@@ -18,8 +18,8 @@ public class CameraController : MonoBehaviour
     private Transform _parentalTransform;
     private Vector3 _cameraLinearOffset;
     private Quaternion _cameraAngularOffset;
-    private Minigame _currentMinigame;
     private Action _cameraBehaviour;
+    private MinigameCamera _minigameCamera;
     private Camera camera;
     private float targetFov;
 
@@ -28,7 +28,7 @@ public class CameraController : MonoBehaviour
         targetFov = defaultFov * (Mathf.Clamp(1.8f-Mathf.Pow(t,2),1,2));
     }
 
-    private void Start()
+    private void OnEnable()
     {
         camera = GetComponent<Camera>();
         targetFov = defaultFov = camera.fieldOfView;
@@ -62,12 +62,20 @@ public class CameraController : MonoBehaviour
     public void ForceChasing() 
     {
         _cameraBehaviour = Chase;
+        
     }
 
-    public void SetCameraMinigame(Minigame minigame) 
+    private void CameraSimulation()
     {
-        _currentMinigame = minigame;
-        _cameraBehaviour = minigame.CameraBehaviour;
+        Vector3 newCameraPosition = Vector3.Lerp(transform.position, _minigameCamera.transform.position, _linearSmoothRate);
+        transform.position = newCameraPosition;
+        transform.rotation = Quaternion.Lerp(transform.rotation, _minigameCamera.transform.rotation, _angularSmoothRate);
+    }
+
+    public void SimulateCamera(MinigameCamera camera) 
+    {
+        _minigameCamera = camera;
+        _cameraBehaviour = CameraSimulation;
     }
 
     private void Chase() 

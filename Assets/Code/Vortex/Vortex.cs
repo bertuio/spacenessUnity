@@ -21,7 +21,7 @@ public class Vortex : MonoBehaviour
     private float slowererRadius;
     private float ratio;
 
-    private void Start()
+    private void OnEnable()
     {
         slowererCenter = transform.position;
         slowererRadius = slowerer.radius;

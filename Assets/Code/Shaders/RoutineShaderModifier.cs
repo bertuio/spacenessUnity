@@ -16,7 +16,7 @@ public class RoutineShaderModifier : MonoBehaviour
     {
         if (Application.isPlaying & initialized) UpdateGrayscaleProperties();
     }
-    void Start()
+    void OnEnable()
     {
         initialized = true;
         meshRenderer = GetComponent<MeshRenderer>();
