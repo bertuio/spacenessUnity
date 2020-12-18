@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 public class MinigameInteractable : Interactable
 {
     [SerializeField] private UnityEvent _openGateway, _closeGateway;
-    public Action OnInteracted;
+    public Action OnInteracted, OnFinishInteraction;
 
     private void EnteredCallback() 
     {
@@ -18,7 +18,6 @@ public class MinigameInteractable : Interactable
     private void ExitedCallback() 
     {
         _closeGateway?.Invoke();
-        Camera.main.GetComponent<CameraController>().ForceChasing();
     }
 
     private void OnEnable()
@@ -33,9 +32,13 @@ public class MinigameInteractable : Interactable
         _onExited -= ExitedCallback;
     }
 
+    public override void FinishInteraction()
+    {
+        OnFinishInteraction?.Invoke();
+        Debug.Log("Interaction Finished");
+    }
     public override void Interact() 
     {
-        _hint.Hide();
         OnInteracted?.Invoke();
         Debug.Log("Interacted");
         //_openGateway?.Invoke();

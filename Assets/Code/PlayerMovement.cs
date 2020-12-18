@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Quaternion _targetRotation;
     private float _stepTimer;
-    private Action _movementAction;
+    private Action _currentMovementAction;
     public InputAction OnRightClick, OnLeftClick, OnMouseMoveX;
     private Action<InputAction.CallbackContext> LeftClickCallback, RightClickCallback, MouseMoveXCallback;
 
@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        _movementAction?.Invoke();
+        _currentMovementAction?.Invoke();
     }
     private void InitializeInputActions() 
     {
@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
             OnRightClick.Enable();
             OnLeftClick.Disable();
             RestartStepTimer();
-            if (_movementAction != Walk)
+            if (_currentMovementAction != Walk)
             {
                 OnStartedWalking?.Invoke();
                 SetAction(Walk);
@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
             OnRightClick.Disable();
             OnLeftClick.Enable();
             RestartStepTimer();
-            if (_movementAction != Walk)
+            if (_currentMovementAction != Walk)
             {
                 OnStartedWalking?.Invoke();
                 SetAction(Walk);
@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void SetAction(Action movementAction)
     {
-        _movementAction = movementAction;
+        _currentMovementAction = movementAction;
     }
     private void AppendBodyRotation(float rotation) 
     {
@@ -88,6 +88,20 @@ public class PlayerMovement : MonoBehaviour
     {
         _stepTimer -= Time.deltaTime;
         return _stepTimer <= 0;
+    }
+
+    public void Lock() 
+    {
+        OnLeftClick.Disable();
+        OnRightClick.Disable();
+        OnMouseMoveX.Disable();
+    }
+
+    public void Unlock() 
+    {
+        OnLeftClick.Enable();
+        OnRightClick.Enable();
+        OnMouseMoveX.Enable();
     }
 
     private void RestartStepTimer() 

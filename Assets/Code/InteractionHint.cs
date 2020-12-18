@@ -13,11 +13,11 @@ public class InteractionHint : Hint
     public override void Display()
     {
         Debug.Log("Displaying");
-        _dravingCanvas.gameObject.SetActive(true);
+        _drawings.gameObject.SetActive(true);
     }
 
     public override void Hide()
     {
-        _dravingCanvas.gameObject.SetActive(false);
+        _drawings.gameObject.SetActive(false);
     }
 }

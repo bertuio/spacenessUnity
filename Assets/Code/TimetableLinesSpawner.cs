@@ -11,14 +11,9 @@ namespace Timetable {
         [SerializeField] private Transform _firstSpawn;
         private List<TimetableLine> _lineObjects = new List<TimetableLine>();
 
-
         public void Spawn(TimetableVariant variant) {
-            foreach (TimetableLine line in _lineObjects) 
-            {
-                Destroy(line.gameObject);
-            }
-            _lineObjects.Clear();
-
+            
+            Flush();
             Vector3 scale = _linePrefab.transform.localScale;
             Vector3 modifiedScale = new Vector3(scale.x, scale.y * ((float)_height / variant.Lines.Count), scale.z);
             for (int i=0; i<variant.Lines.Count; i++) 
@@ -31,5 +26,13 @@ namespace Timetable {
             }
         }
 
+        public void Flush()
+        {
+            foreach (TimetableLine line in _lineObjects)
+            {
+                Destroy(line.gameObject);
+            }
+            _lineObjects.Clear();
+        }
     }
 }

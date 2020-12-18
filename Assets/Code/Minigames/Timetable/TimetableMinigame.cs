@@ -15,6 +15,11 @@ namespace Timetable {
             _spawner.Spawn(_variant);
         }
 
+        public override void EndGame() 
+        {
+            Camera.main.GetComponent<CameraController>().ForceChasing();
+            _spawner.Flush();
+        }
         public override void StartGame() 
         {
             PrepareMinigame();

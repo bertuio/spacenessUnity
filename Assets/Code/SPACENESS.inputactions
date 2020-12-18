@@ -2,13 +2,21 @@
     "name": "SPACENESS",
     "maps": [
         {
-            "name": "Interaction",
+            "name": "Interactions",
             "id": "e68dbb02-eccc-4f0a-8eb0-f14ce8ddc36b",
             "actions": [
                 {
                     "name": "Interact",
                     "type": "Value",
                     "id": "f6b8988b-effa-4016-8f69-a1bf5251b2ed",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
+                },
+                {
+                    "name": "ExitInteract",
+                    "type": "Button",
+                    "id": "a28f74f7-6398-4953-8bf3-b22f18767983",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press"
@@ -25,8 +33,25 @@
                     "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "66ec4053-ffe7-40a8-add0-b63a21919b90",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ExitInteract",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "No interactions",
+            "id": "9a585309-ddcd-44ec-ae7b-af099f10de8d",
+            "actions": [],
+            "bindings": []
         }
     ],
     "controlSchemes": [
