@@ -9,7 +9,7 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private PlayerInput _interactionPlayerInput;
     [SerializeField] private Hint _hint;
 
-    public Action InteractionStarted, InteractionEnded;
+    public Action OnInteractionStarted, OnInteractionEnded, OnInteractionEndedForced;
 
     private Interactable _currentInteractable;
     private void OnTriggerEnter(Collider other)
@@ -27,33 +27,53 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    public void StartInteraction()
+    public void OnEnterButton(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            _interactionPlayerInput.SwitchCurrentActionMap("InInteraction");
+            StartInteraction();
+        }
+    }
+
+    public void OnExitButton(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            _interactionPlayerInput.SwitchCurrentActionMap("Ready");
+            EndInteraction();
+        }
+    }
+    private void StartInteraction()
     {
         _hint.Hide();
         Debug.Log("Press registered");
-        _currentInteractable?.Interact();
-        InteractionStarted?.Invoke();
+        _currentInteractable?.StartInteraction();
+        OnInteractionStarted?.Invoke();
     }
 
-    public void EndInteraction() 
+    private void EndInteraction() 
     {
-        _currentInteractable.FinishInteraction();
-        InteractionEnded?.Invoke();
-        _currentInteractable.PlayerExited();
+        _hint.Hide();
+        _currentInteractable.EndInteraction();
+        OnInteractionEnded?.Invoke();
     }
 
     private void OnEnteredInteractable(Interactable interactable) 
     {
         _hint.Display();
         _currentInteractable = interactable;
-        _interactionPlayerInput.SwitchCurrentActionMap("Interactions");
+        _interactionPlayerInput.SwitchCurrentActionMap("Ready");
         interactable.PlayerEntered();
+        interactable.OnInteractionEndedForced += OnInteractionEndedForced;
+        Debug.Log("ENTERED");
     }
     private void OnExitedInteractable(Interactable interactable)
     {
         _hint.Hide();
-        _interactionPlayerInput.SwitchCurrentActionMap("No interactions");
+        _interactionPlayerInput.SwitchCurrentActionMap("NotReady");
         interactable.PlayerExited();
+        interactable.OnInteractionEndedForced -= OnInteractionEndedForced;
         EndInteraction();
     }
 }

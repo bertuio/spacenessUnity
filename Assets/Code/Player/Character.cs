@@ -12,8 +12,9 @@ public class Character : MonoBehaviour
 
     private void OnEnable()
     {
-        _interaction.InteractionStarted += () => _movement.Lock();
-        _interaction.InteractionEnded += () => _movement.Unlock();
+        _interaction.OnInteractionStarted += () => _movement.Lock();
+        _interaction.OnInteractionEnded += () => _movement.Unlock();
+        _interaction.OnInteractionEndedForced += () => _movement.Unlock();
         _attachedCameraController.SetCameraChasingGoal(transform);
     }
 }

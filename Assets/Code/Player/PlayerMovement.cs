@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private float _stepTimer;
     private Action _currentMovementAction;
     public InputAction OnRightClick, OnLeftClick, OnMouseMoveX;
-    private Action<InputAction.CallbackContext> LeftClickCallback, RightClickCallback, MouseMoveXCallback;
+    private Action<InputAction.CallbackContext> _leftClickCallback, _rightClickCallback, _mouseMoveXCallback;
 
     public Action OnStartedWalking, OnStartedIdle;
     private void OnEnable()
@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void InitializeInputActions() 
     {
-        LeftClickCallback = (InputAction.CallbackContext context) =>
+        _leftClickCallback = (InputAction.CallbackContext context) =>
         {
             OnRightClick.Enable();
             OnLeftClick.Disable();
@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
                 SetAction(Walk);
             }
         };
-        RightClickCallback = (InputAction.CallbackContext context) =>
+        _rightClickCallback = (InputAction.CallbackContext context) =>
         {
             OnRightClick.Disable();
             OnLeftClick.Enable();
@@ -63,14 +63,14 @@ public class PlayerMovement : MonoBehaviour
                 SetAction(Walk);
             }
         };
-        MouseMoveXCallback = (InputAction.CallbackContext context) =>
+        _mouseMoveXCallback = (InputAction.CallbackContext context) =>
         {
             AppendBodyRotation(context.ReadValue<float>());
         };
         
-        OnLeftClick.performed += LeftClickCallback;
-        OnRightClick.performed += RightClickCallback;
-        OnMouseMoveX.performed += MouseMoveXCallback;
+        OnLeftClick.performed += _leftClickCallback;
+        OnRightClick.performed += _rightClickCallback;
+        OnMouseMoveX.performed += _mouseMoveXCallback;
     }
     private void SetAction(Action movementAction)
     {

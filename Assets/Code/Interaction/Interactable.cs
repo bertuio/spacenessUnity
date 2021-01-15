@@ -10,14 +10,15 @@ public abstract class Interactable : MonoBehaviour
 {   
     protected Action _onEntered;
     protected Action _onExited;
-
+    public Action OnInteracted, OnInteractionEnded;
+    public Action OnInteractionEndedForced;
     private void Awake()
     {
 
     }
 
-    public abstract void FinishInteraction();
-    public abstract void Interact();
+    public abstract void EndInteraction();
+    public abstract void StartInteraction();
 
     public void PlayerEntered()
     {

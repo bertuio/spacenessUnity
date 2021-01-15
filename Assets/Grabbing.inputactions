@@ -1,41 +1,79 @@
 {
-    "name": "SPACENESS",
+    "name": "Grabbing",
     "maps": [
         {
-            "name": "Ready",
-            "id": "e68dbb02-eccc-4f0a-8eb0-f14ce8ddc36b",
+            "name": "Grabbing",
+            "id": "24208074-a9f1-4d3c-85f8-0e1df1669a1d",
             "actions": [
                 {
-                    "name": "Interact",
+                    "name": "MouseDown",
                     "type": "Button",
-                    "id": "f6b8988b-effa-4016-8f69-a1bf5251b2ed",
+                    "id": "38b192d1-cb43-41ad-b672-93e74a440026",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press"
+                    "interactions": ""
+                },
+                {
+                    "name": "MouseUp",
+                    "type": "Button",
+                    "id": "96bfa4af-2cfb-4a4f-b503-24dfcaf983a0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "MouseY",
+                    "type": "Value",
+                    "id": "87181973-798b-452d-b3ff-d772c8d03bfc",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
                 {
                     "name": "",
-                    "id": "e1d84b4d-9000-4229-a49a-491e6f58004d",
-                    "path": "<Keyboard>/e",
+                    "id": "21c1448e-02b5-469d-ba1d-11757a5e5836",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "",
-                    "action": "Interact",
+                    "action": "MouseDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "42e3e3a8-1919-4999-ac38-99855809711e",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "50617d7b-0a0d-4ee8-b74f-3806e9945fd8",
+                    "path": "<Mouse>/delta/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseY",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
             ]
         },
         {
-            "name": "NotReady",
-            "id": "9a585309-ddcd-44ec-ae7b-af099f10de8d",
+            "name": "NotGrabbing",
+            "id": "31920944-5adc-4755-861f-7b97dc76cb2e",
             "actions": [
                 {
-                    "name": "Empty",
+                    "name": "New action",
                     "type": "Button",
-                    "id": "c7609c90-a1a0-442e-b038-c01f8599fc0e",
+                    "id": "d960a4ad-1b18-471f-8327-b25f978f67ef",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -44,39 +82,12 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "c76e117e-2947-486a-aeee-bdd430fe5aaa",
+                    "id": "f4ae4756-5587-422b-b4fb-bdcf8eea3067",
                     "path": "",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Empty",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "InInteraction",
-            "id": "c3c1a75c-cd88-443b-8400-0ab1d2dee55b",
-            "actions": [
-                {
-                    "name": "ExitInteract",
-                    "type": "Button",
-                    "id": "679274e9-c170-4e43-9446-d86b90568a14",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press"
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "c87b4a01-99cf-4e98-8e8e-57e8fe7d4a9e",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ExitInteract",
+                    "action": "New action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

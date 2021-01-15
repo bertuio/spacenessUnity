@@ -8,7 +8,6 @@ using UnityEngine.InputSystem;
 public class MinigameInteractable : Interactable
 {
     [SerializeField] private UnityEvent _openGateway, _closeGateway;
-    public Action OnInteracted, OnFinishInteraction;
 
     private void EnteredCallback() 
     {
@@ -24,20 +23,24 @@ public class MinigameInteractable : Interactable
     {
         _onEntered += EnteredCallback;
         _onExited += ExitedCallback;
+        OnInteractionEndedForced += _closeGateway.Invoke;
     }
 
     private void OnDisable()
     {
         _onEntered -= EnteredCallback;
         _onExited -= ExitedCallback;
+        OnInteractionEndedForced -= _closeGateway.Invoke;
     }
 
-    public override void FinishInteraction()
+    
+
+    public override void EndInteraction()
     {
-        OnFinishInteraction?.Invoke();
+        OnInteractionEnded?.Invoke();
         Debug.Log("Interaction Finished");
     }
-    public override void Interact() 
+    public override void StartInteraction() 
     {
         OnInteracted?.Invoke();
         Debug.Log("Interacted");
