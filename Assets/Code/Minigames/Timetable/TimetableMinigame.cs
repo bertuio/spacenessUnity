@@ -73,6 +73,7 @@ namespace Timetable {
         {
             base.FinishGame();
             Flush();
+            _grabber.Deactivate();
         }
 
         public override void StartGame() 
@@ -82,7 +83,7 @@ namespace Timetable {
             PrepareMinigame();
         }
 
-        public void CheckWinCondition() 
+        private void CheckWinCondition() 
         {
             for (int i = 0; i<_lines.Count-1;i++) 
             {
@@ -93,7 +94,7 @@ namespace Timetable {
             }
             FinishGame();
         }
-        public void Flush()
+        private void Flush()
         {
             foreach (TimetableLine line in _lines)
             {

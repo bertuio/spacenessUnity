@@ -67,7 +67,6 @@ public class LineGrabber : MonoBehaviour
     private void _mouseMoveYCallback(InputAction.CallbackContext context) 
     {
         _mouseDelta += context.ReadValue<float>();
-        Debug.Log(_mouseDelta);
         if (Mathf.Abs(_mouseDelta) > _mouseLimit)
         {
             if (_mouseDelta < 0)
@@ -86,8 +85,6 @@ public class LineGrabber : MonoBehaviour
     {
         _pickedLine = TraceLine();
         if (!_pickedLine) return;
-
-        Debug.Log(_pickedLine);
         _onMouseMoveY.performed += _mouseMoveYCallback;
 
         _onMouseMoveY.Enable();

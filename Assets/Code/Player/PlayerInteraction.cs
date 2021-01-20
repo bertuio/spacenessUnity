@@ -55,8 +55,13 @@ public class PlayerInteraction : MonoBehaviour
     private void EndInteraction() 
     {
         _hint.Hide();
-        _currentInteractable.EndInteraction();
+        _currentInteractable?.EndInteraction();
         OnInteractionEnded?.Invoke();
+    }
+
+    private void InteractionEdedForcedCallback() 
+    {
+        _interactionPlayerInput.SwitchCurrentActionMap("Ready");
     }
 
     private void OnEnteredInteractable(Interactable interactable) 
@@ -66,6 +71,7 @@ public class PlayerInteraction : MonoBehaviour
         _interactionPlayerInput.SwitchCurrentActionMap("Ready");
         interactable.PlayerEntered();
         interactable.OnInteractionEndedForced += OnInteractionEndedForced;
+        interactable.OnInteractionEndedForced += InteractionEdedForcedCallback;
         Debug.Log("ENTERED");
     }
     private void OnExitedInteractable(Interactable interactable)
@@ -74,6 +80,7 @@ public class PlayerInteraction : MonoBehaviour
         _interactionPlayerInput.SwitchCurrentActionMap("NotReady");
         interactable.PlayerExited();
         interactable.OnInteractionEndedForced -= OnInteractionEndedForced;
+        interactable.OnInteractionEndedForced -= InteractionEdedForcedCallback;
         EndInteraction();
     }
 }
