@@ -693,6 +693,8 @@ MonoBehaviour:
         m_CallState: 2
   _spawner: {fileID: 6504361971985673124}
   _grabber: {fileID: 1192619281}
+  _corruptionProbability: 0
+  _recorruptionProbability: 0
 --- !u!114 &6504361971985673124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -708,10 +710,8 @@ MonoBehaviour:
   _lampPrefab: {fileID: 2415493295812497314, guid: 4eda480509b43a94380fd7ef5ac30f54, type: 3}
   _parent: {fileID: 4633615637569982621}
   _startTransform: {fileID: 8026586754105175334}
-  _corruptedCount: 3
-  _dimensions: {x: 10, y: 6}
-  _gridSize: 0.25
-  _corruptionProbability: 0.15
+  _dimensions: {x: 7, y: 4}
+  _gridSize: 0.15
 --- !u!114 &1192619281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -785,6 +785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce7061305a26ed4988cff9e8f8d4177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _parent: {fileID: 4633615637569982621}
   _wireMaterial: {fileID: 2100000, guid: f3bb7952c03a06448950dfef3118d6ee, type: 2}
 --- !u!1 &2347574357784657468
 GameObject:

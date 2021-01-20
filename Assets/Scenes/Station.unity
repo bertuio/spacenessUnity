@@ -3475,6 +3475,10 @@ PrefabInstance:
       value: Post-process Volume
       objectReference: {fileID: 0}
     - target: {fileID: 4231910736020437651, guid: 8aea1955a1c361e4ca06f81339a106f8, type: 3}
+      propertyPath: weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4231910736020437651, guid: 8aea1955a1c361e4ca06f81339a106f8, type: 3}
       propertyPath: isGlobal
       value: 1
       objectReference: {fileID: 0}
@@ -4865,11 +4869,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2164937581083705996, guid: 5cb92bca86aa11149810a25949304436, type: 3}
       propertyPath: _corruptionProbability
-      value: 0.1
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 2164937581083705996, guid: 5cb92bca86aa11149810a25949304436, type: 3}
       propertyPath: _recorruptionProbability
-      value: 0.6
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 2164937581083705996, guid: 5cb92bca86aa11149810a25949304436, type: 3}
       propertyPath: _onMinigameFinished.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -4889,7 +4893,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6504361971985673124, guid: 5cb92bca86aa11149810a25949304436, type: 3}
       propertyPath: _dimensions.y
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cb92bca86aa11149810a25949304436, type: 3}

@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 6059907310679750655}
   m_LocalRotation: {x: 0, y: 0.85146624, z: 0, w: 0.52440953}
   m_LocalPosition: {x: 0.5938191, y: 2.421, z: 0.26453507}
-  m_LocalScale: {x: 1, y: 1, z: 0.51}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 352056804144959647}
   - {fileID: 8561386296145517826}
@@ -50,6 +50,7 @@ MonoBehaviour:
   _disabledMaterial: {fileID: 2100000, guid: 1c172966cdd4fca4aabda92456f9056b, type: 2}
   _enabledMaterial: {fileID: 2100000, guid: e8d8bc69bee98af489316d032658f21d, type: 2}
   _corruptedMaterial: {fileID: 2100000, guid: 188e57ef55712da44bfe21bc222f01b7, type: 2}
+  _awaitingMaterial: {fileID: 2100000, guid: f3bb7952c03a06448950dfef3118d6ee, type: 2}
   _lightingMesh: {fileID: 8815381322519391672}
 --- !u!64 &4939465327579371013
 MeshCollider:

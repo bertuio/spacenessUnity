@@ -8,6 +8,7 @@ public class WireDrawer : MonoBehaviour
     private LineRenderer _renderer;
     private float _wireWidth = 0.004f;
     private float _wireHeight = 0.02f;
+    [SerializeField] private Transform _parent;
     private List<LineRenderer> _wires = new List<LineRenderer>();
     [SerializeField] private Material _wireMaterial;
     public void ReplaceEnd(Transform endTransform)
@@ -35,7 +36,9 @@ public class WireDrawer : MonoBehaviour
     }
     public void SetupNewLineRenderer(Transform startTransform)
     {
-        _renderer = (new GameObject("line")).AddComponent<LineRenderer>();
+        var a = new GameObject("line");
+        a.transform.SetParent(_parent);
+        _renderer = a.AddComponent<LineRenderer>();
         _wires.Add(_renderer);
         _renderer.positionCount = 2;
         _renderer.useWorldSpace = true;
@@ -43,6 +46,7 @@ public class WireDrawer : MonoBehaviour
         _renderer.endWidth = _wireWidth;
         _renderer.SetPosition(0, startTransform.position + startTransform.TransformVector(Vector3.up * _wireHeight));
         _renderer.SetPosition(1, startTransform.position + startTransform.TransformVector(Vector3.up * _wireHeight));
+        _renderer.useWorldSpace = false;
         _renderer.material = _wireMaterial;
     }
 }
