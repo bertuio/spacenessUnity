@@ -21,10 +21,12 @@ public abstract class Minigame : MonoBehaviour
     public virtual void FinishGame()
     {
         Camera.main.GetComponent<CameraController>().ForceChasing();
-
-        Debug.Log("Before callback");
         _onMinigameFinished?.Invoke();
-        Debug.Log("After callback");
+        _interactable.OnInteractionEndedForced?.Invoke();
+    }
+    public virtual void FailGame()
+    {
+        Camera.main.GetComponent<CameraController>().ForceChasing();
         _interactable.OnInteractionEndedForced?.Invoke();
     }
 
