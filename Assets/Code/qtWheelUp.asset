@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed8429a2ec148449907b379dc17c49e, type: 3}
+  m_Name: qtWheelUp
+  m_EditorClassIdentifier: 
+  _image: {fileID: 21300000, guid: 894b4d63ebec1294186f04321bd0ff9d, type: 3}
+  _event:
+    m_Name: Event
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 0605bf82-50f6-4f07-9e22-62e8594ca36a
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: d2b5413d-1413-4976-b8aa-adb94cae5e32
+      m_Path: <Mouse>/scroll/y
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Event
+      m_Flags: 0

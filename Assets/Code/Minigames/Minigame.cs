@@ -13,20 +13,24 @@ public abstract class Minigame : MonoBehaviour
     public virtual void StartGame() 
     {
         Camera.main.gameObject.GetComponent<CameraController>().SimulateCamera(_minigameCamera);
+        FindObjectOfType<Character>().LockMovement();
     }
     public virtual void InterruptGame() 
     {
         Camera.main.GetComponent<CameraController>().ForceChasing();
+        FindObjectOfType<Character>().UnlockMovement();
     }
     public virtual void FinishGame()
     {
         Camera.main.GetComponent<CameraController>().ForceChasing();
         _onMinigameFinished?.Invoke();
+        FindObjectOfType<Character>().UnlockMovement();
         _interactable.OnInteractionEndedForced?.Invoke();
     }
     public virtual void FailGame()
     {
         Camera.main.GetComponent<CameraController>().ForceChasing();
+        FindObjectOfType<Character>().UnlockMovement();
         _interactable.OnInteractionEndedForced?.Invoke();
     }
 

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed8429a2ec148449907b379dc17c49e, type: 3}
+  m_Name: qtWheelDown
+  m_EditorClassIdentifier: 
+  _image: {fileID: 21300000, guid: f997bd363deb0d74c91ccf892b01c72a, type: 3}
+  _event:
+    m_Name: Event
+    m_Type: 0
+    m_ExpectedControlType: Axis
+    m_Id: 1d87729d-29b6-480d-b4bb-7490f4246d90
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: fd0aadd1-7c63-4c47-bd76-5a1c4b48172d
+      m_Path: <Mouse>/scroll/y
+      m_Interactions: 
+      m_Processors: AxisDeadzone(min=100,max=121)
+      m_Groups: 
+      m_Action: Event
+      m_Flags: 0

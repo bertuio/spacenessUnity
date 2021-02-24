@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private Action _currentMovementAction;
     public InputAction OnRightClick, OnLeftClick, OnMouseMoveX;
     private Action<InputAction.CallbackContext> _leftClickCallback, _rightClickCallback, _mouseMoveXCallback;
+    private Vector3 _flightTargetPosition;
 
     public Action OnStartedWalking, OnStartedIdle;
     private void OnEnable()
@@ -92,13 +93,17 @@ public class PlayerMovement : MonoBehaviour
 
     public void Lock() 
     {
+        _controller.enabled = false;
         OnLeftClick.Disable();
         OnRightClick.Disable();
         OnMouseMoveX.Disable();
+        OnStartedIdle?.Invoke();
+        SetAction(Idle);
     }
 
-    public void Unlock() 
+    public void Unlock()
     {
+        _controller.enabled = true;
         OnLeftClick.Enable();
         OnRightClick.Enable();
         OnMouseMoveX.Enable();
@@ -122,5 +127,22 @@ public class PlayerMovement : MonoBehaviour
             OnStartedIdle?.Invoke();
             SetAction(Idle);
         }
+    }
+
+    public void StopFly() 
+    {
+        SetAction(Idle);
+    }
+
+    public void FlyTowards(Vector3 position) 
+    {
+        _flightTargetPosition = position;
+        SetAction(Fly);
+    }
+
+    private void Fly() 
+    {
+        Debug.DrawLine(transform.position, _flightTargetPosition);
+        transform.position = Vector3.MoveTowards(transform.position, _flightTargetPosition, _baseSpeed*Time.deltaTime);
     }
 }

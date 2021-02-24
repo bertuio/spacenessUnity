@@ -51,7 +51,7 @@ MonoBehaviour:
     overrideState: 1
     value: 1.12
   edgesOnly:
-    overrideState: 1
+    overrideState: 0
     value: 0.025
   edgesOnlyBgColor:
     overrideState: 1
