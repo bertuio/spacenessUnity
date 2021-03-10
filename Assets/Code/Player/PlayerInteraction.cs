@@ -8,6 +8,7 @@ public class PlayerInteraction : MonoBehaviour
 {
     [SerializeField] private PlayerInput _interactionPlayerInput;
     [SerializeField] private Hint _hint;
+    [SerializeField] private AudioSource _audioInteracted;
 
     public Action OnInteractionStarted, OnInteractionEnded, OnInteractionEndedForced;
 
@@ -50,6 +51,7 @@ public class PlayerInteraction : MonoBehaviour
         Debug.Log("Press registered");
         _currentInteractable?.StartInteraction();
         OnInteractionStarted?.Invoke();
+        if (_currentInteractable != null) _audioInteracted.Play();
     }
 
     private void EndInteraction() 

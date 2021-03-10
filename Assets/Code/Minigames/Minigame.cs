@@ -9,6 +9,7 @@ public abstract class Minigame : MonoBehaviour
     [SerializeField] protected MinigameCamera _minigameCamera;
     [SerializeField] protected MinigameInteractable _interactable;
     [SerializeField] private UnityEvent _onMinigameFinished;
+    [SerializeField] private AudioSource _audioSucceed, _audioFailed;
 
     public virtual void StartGame() 
     {
@@ -26,15 +27,17 @@ public abstract class Minigame : MonoBehaviour
         _onMinigameFinished?.Invoke();
         FindObjectOfType<Character>().UnlockMovement();
         _interactable.OnInteractionEndedForced?.Invoke();
+        if (_audioSucceed) _audioSucceed.Play();
     }
     public virtual void FailGame()
     {
         Camera.main.GetComponent<CameraController>().ForceChasing();
         FindObjectOfType<Character>().UnlockMovement();
         _interactable.OnInteractionEndedForced?.Invoke();
+        if (_audioFailed) _audioFailed.Play();
     }
 
-    private void Awake()
+    public void Awake()
     {
         _interactable.OnInteracted += StartGame;
         _interactable.OnInteractionEnded += InterruptGame;

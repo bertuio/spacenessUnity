@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private float _rotationInertion;
     [SerializeField] private CharacterController _controller;
+    [SerializeField] private AudioSource _audioStep;
 
     private Quaternion _targetRotation;
     private float _stepTimer;
@@ -44,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _leftClickCallback = (InputAction.CallbackContext context) =>
         {
+            _audioStep.Play();
             OnRightClick.Enable();
             OnLeftClick.Disable();
             RestartStepTimer();
@@ -55,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
         };
         _rightClickCallback = (InputAction.CallbackContext context) =>
         {
+            _audioStep.Play();
             OnRightClick.Disable();
             OnLeftClick.Enable();
             RestartStepTimer();

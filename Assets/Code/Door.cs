@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
+    [SerializeField] private AudioSource _audio;
     [SerializeField] private float _doorSpeed;
     Action _moveUp;
     public void OpenDoor()
     {
         _moveUp += MoveUp;
+        _audio.Play();
     }
 
     private void MoveUp()
