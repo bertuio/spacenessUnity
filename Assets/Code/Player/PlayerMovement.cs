@@ -86,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void ApplyBodyRotation() 
     {
-        _controller.transform.rotation = Quaternion.Lerp(_controller.transform.rotation, _targetRotation, _rotationInertion);
+        transform.rotation = Quaternion.Lerp(_controller.transform.rotation, _targetRotation, _rotationInertion);
     }
     private bool UpdateStepTimer() 
     {
@@ -94,7 +94,16 @@ public class PlayerMovement : MonoBehaviour
         return _stepTimer <= 0;
     }
 
-    public void Lock() 
+    public void LockMovement() 
+    {
+        _controller.enabled = false;
+        OnLeftClick.Disable();
+        OnRightClick.Disable();
+        OnStartedIdle?.Invoke();
+        SetAction(Idle);
+    }
+
+    public void LockMovementAndRotation()
     {
         _controller.enabled = false;
         OnLeftClick.Disable();
@@ -145,7 +154,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Fly() 
     {
-        Debug.DrawLine(transform.position, _flightTargetPosition);
         transform.position = Vector3.MoveTowards(transform.position, _flightTargetPosition, _baseSpeed*Time.deltaTime);
+        ApplyBodyRotation();
     }
 }

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class AnalizeMinigame : Minigame
 {
-    [SerializeField] AnalizeMaterialSpawner _spawner;
-    [SerializeField] MaterialPicker _picker;
-    [SerializeField] AnalizeMaterial _display;
+    [SerializeField] private AnalizeMaterialSpawner _spawner;
+    [SerializeField] private MaterialPicker _picker;
+    [SerializeField] private AnalizeMaterial _display;
+    [SerializeField] private AudioSource _audioMissed;
     private string _targetChemical;
     private new void Awake()
     {
@@ -51,6 +52,7 @@ public class AnalizeMinigame : Minigame
         else 
         {
             LoadGame();
+            _audioMissed.Play();
         }
     }
 }

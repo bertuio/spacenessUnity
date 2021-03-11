@@ -27,9 +27,14 @@ public class Character : MonoBehaviour
         _movement.StopFly();
     }
 
-    public void LockMovement() 
+    public void LockMovement()
     {
-        _movement.Lock();
+        _movement.LockMovement();
+    }
+
+    public void LockMovementAndRotation() 
+    {
+        _movement.LockMovementAndRotation();
     }
 
     public void UnlockMovement() 

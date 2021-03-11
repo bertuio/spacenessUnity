@@ -14,7 +14,7 @@ public abstract class Minigame : MonoBehaviour
     public virtual void StartGame() 
     {
         Camera.main.gameObject.GetComponent<CameraController>().SimulateCamera(_minigameCamera);
-        FindObjectOfType<Character>().LockMovement();
+        FindObjectOfType<Character>().LockMovementAndRotation();
     }
     public virtual void InterruptGame() 
     {

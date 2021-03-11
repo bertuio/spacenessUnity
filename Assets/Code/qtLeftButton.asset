@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ed8429a2ec148449907b379dc17c49e, type: 3}
   m_Name: qtLeftButton
   m_EditorClassIdentifier: 
-  _image: {fileID: 21300000, guid: 26a997e4974a60440b2c24b25fee5a9e, type: 3}
+  _image: {fileID: 21300000, guid: a9388f9ea7d236845afd84f5da695a51, type: 3}
   _event:
     m_Name: Event
     m_Type: 1

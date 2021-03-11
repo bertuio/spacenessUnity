@@ -52,10 +52,10 @@ MonoBehaviour:
     value: 1.12
   edgesOnly:
     overrideState: 0
-    value: 0.025
+    value: 1
   edgesOnlyBgColor:
-    overrideState: 1
-    value: {r: 1, g: 1, b: 1, a: 1}
+    overrideState: 0
+    value: {r: 0.30286503, g: 0.99300003, b: 0.76314926, a: 1}
 --- !u!114 &6137493151941957609
 MonoBehaviour:
   m_ObjectHideFlags: 3
