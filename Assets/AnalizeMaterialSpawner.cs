@@ -7,6 +7,7 @@ public class AnalizeMaterialSpawner : MonoBehaviour
     [SerializeField] private AnalizeMaterial _materialPrefab;
     [SerializeField] private Transform _parent;
     [SerializeField] private string[] _elements;
+    [SerializeField] private Transform _spawnTransform;
     [SerializeField] private AnalizeMaterialCollisionDetection _start, _end;
     [SerializeField] private float _conveyorSpeed;
     private List<AnalizeMaterial> _instances = new List<AnalizeMaterial>();
@@ -24,15 +25,15 @@ public class AnalizeMaterialSpawner : MonoBehaviour
 
     public void Clear() 
     {
-        _start.OnTriggerExited -= SpawnChemical;
+        _start.OnTriggerEntered -= SpawnChemical;
         _instances.ForEach((AnalizeMaterial material) => { Destroy(material.gameObject); });
         _instances.Clear();
-        _start.OnTriggerExited += SpawnChemical;
+        _start.OnTriggerEntered += SpawnChemical;
     }
 
     private void SpawnChemical()
     {
-        AnalizeMaterial spawnedMaterial = Instantiate(_materialPrefab, _start.transform.position, _start.transform.rotation, _parent);
+        AnalizeMaterial spawnedMaterial = Instantiate(_materialPrefab, _spawnTransform.position, _spawnTransform.rotation, _parent);
         spawnedMaterial.Speed = _conveyorSpeed;
         spawnedMaterial.Chemical = RandomElement();
         _instances.Add(spawnedMaterial);
@@ -40,13 +41,13 @@ public class AnalizeMaterialSpawner : MonoBehaviour
 
     private void OnEnable()
     {
-        _start.OnTriggerExited += SpawnChemical;
+        _start.OnTriggerEntered += SpawnChemical;
         _end.OnTriggerEntered += OnEndArrivedCallback;
     }
 
     private void OnDisable()
     {
-        _start.OnTriggerExited -= SpawnChemical;
+        _start.OnTriggerEntered -= SpawnChemical;
         _end.OnTriggerEntered -= OnEndArrivedCallback;
     }
     private void OnEndArrivedCallback()

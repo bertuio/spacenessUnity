@@ -47,7 +47,7 @@ public class PlayerInteraction : MonoBehaviour
     }
     private void StartInteraction()
     {
-        _hint.Hide();
+        _hint?.Hide();
         Debug.Log("Press registered");
         _currentInteractable?.StartInteraction();
         OnInteractionStarted?.Invoke();
@@ -56,7 +56,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void EndInteraction() 
     {
-        _hint.Hide();
+        _hint?.Hide();
         _currentInteractable?.EndInteraction();
         OnInteractionEnded?.Invoke();
     }
@@ -68,7 +68,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnEnteredInteractable(Interactable interactable) 
     {
-        _hint.Display();
+        _hint?.Display();
         _currentInteractable = interactable;
         _interactionPlayerInput.SwitchCurrentActionMap("Ready");
         interactable.PlayerEntered();
@@ -78,7 +78,7 @@ public class PlayerInteraction : MonoBehaviour
     }
     private void OnExitedInteractable(Interactable interactable)
     {
-        _hint.Hide();
+        _hint?.Hide();
         _interactionPlayerInput.SwitchCurrentActionMap("NotReady");
         interactable.PlayerExited();
         interactable.OnInteractionEndedForced -= OnInteractionEndedForced;
