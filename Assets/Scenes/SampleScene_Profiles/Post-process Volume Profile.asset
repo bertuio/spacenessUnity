@@ -28,7 +28,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e1905ad603bb9a479914accad762e92, type: 3}
   m_Name: EdgeDetect_BeforeTransparent
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
@@ -1385,10 +1385,10 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 0.05
+    value: 12
   threshold:
     overrideState: 1
-    value: 4.8
+    value: 0
   softKnee:
     overrideState: 0
     value: 0.4
@@ -1397,10 +1397,10 @@ MonoBehaviour:
     value: 19.5
   diffusion:
     overrideState: 1
-    value: 7.3
+    value: 1.6
   anamorphicRatio:
     overrideState: 1
-    value: -0.06
+    value: -0.214
   color:
     overrideState: 1
     value: {r: 1, g: 1, b: 1, a: 1}

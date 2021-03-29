@@ -197,7 +197,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
 --- !u!114 &8539004167378389263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,6 +326,7 @@ GameObject:
   - component: {fileID: 8539004165873167916}
   - component: {fileID: 8539004165873167907}
   - component: {fileID: 8539004165873167906}
+  - component: {fileID: 8539004167378389261}
   m_Layer: 0
   m_Name: SpamMinigame
   m_TagString: Untagged
@@ -663,9 +664,24 @@ MonoBehaviour:
   _interactable: {fileID: 4561834836253408460}
   _onMinigameFinished:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Door, Assembly-CSharp
+        m_MethodName: OpenDoor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _audioSucceed: {fileID: 8539004165873167916}
   _audioFailed: {fileID: 8539004165873167917}
+  _checkCounts: 5
+  _maxAlerts: 12
+  _medianDelay: 3
   _spawner: {fileID: 8539004165873167906}
 --- !u!114 &8539004165873167906
 MonoBehaviour:
@@ -679,8 +695,106 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ccb6d67c75b2bb469c05b9b619d1901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _parent: {fileID: 0}
-  _prefab: {fileID: 5752799596258418035, guid: 063436b33e30bbe49817e777f0c29aad, type: 3}
+  _parent: {fileID: 1092903277}
+  _itemPrefab: {fileID: 5752799596258418035, guid: 063436b33e30bbe49817e777f0c29aad, type: 3}
+  _alertPrefab: {fileID: 605299471296823204, guid: d37239b4ed73d9d4891df64362803746, type: 3}
+  _disappearedAudio: {fileID: 8539004167378389261}
+--- !u!82 &8539004167378389261
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371632088954717884}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: d5749a3fb3461f845be9bb1deca743ce, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.121
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &476582849437991586
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,7 +987,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7387706064836869012, guid: 2fcf50067c35a674e84952ead49cb920, type: 3}
---- !u!114 &8539004167378389261
+--- !u!114 &5420609326461162312
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1978,31 +2092,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4825653719681208877, guid: cf5e11c49d985c340993ebb283c80846, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.577
+      value: 3.347
       objectReference: {fileID: 0}
     - target: {fileID: 4825653719681208877, guid: cf5e11c49d985c340993ebb283c80846, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.465
+      value: -1.29
       objectReference: {fileID: 0}
     - target: {fileID: 4825653719681208877, guid: cf5e11c49d985c340993ebb283c80846, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.991277
+      value: 0.87972194
       objectReference: {fileID: 0}
     - target: {fileID: 4825653719681208877, guid: cf5e11c49d985c340993ebb283c80846, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.13179484
+      value: 0.47548848
       objectReference: {fileID: 0}
     - target: {fileID: 4825653719681208877, guid: cf5e11c49d985c340993ebb283c80846, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000029802319
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4825653719681208877, guid: cf5e11c49d985c340993ebb283c80846, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.00000002235174
+      value: 0.00000004470348
       objectReference: {fileID: 0}
     - target: {fileID: 4825653719681208877, guid: cf5e11c49d985c340993ebb283c80846, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 15.147
+      value: 56.782
       objectReference: {fileID: 0}
     - target: {fileID: 4825653719681208877, guid: cf5e11c49d985c340993ebb283c80846, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y

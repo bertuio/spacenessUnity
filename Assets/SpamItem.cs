@@ -7,12 +7,13 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class SpamItem : MonoBehaviour
 {
-    private bool _toggled = false;
+    public bool Toggled { get; private set; }
     public Action activated;
     [SerializeField] private Sprite _checkedSprite;
 
     public void Toggle()
     {
+        Toggled = true;
         Debug.Log("toggled");
         Button _button = GetComponent<Button>();
         _button.interactable = false;

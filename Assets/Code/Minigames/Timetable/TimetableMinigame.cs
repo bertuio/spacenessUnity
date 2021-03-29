@@ -10,6 +10,7 @@ namespace Timetable {
         [SerializeField] private TimetableGenerator _generator;
         [SerializeField] private TimetableLinesSpawner _spawner;
         [SerializeField] private LineGrabber _grabber;
+        [SerializeField] private AudioSource _audioSwaped;
         private List<TimetableLine> _lines = new List<TimetableLine>();
 
         private void OnEnable()
@@ -26,6 +27,7 @@ namespace Timetable {
 
         private void SwapLines(int a, int b) 
         {
+            _audioSwaped.Play();
             _lines[a].MoveTo(_spawner.GetPositionByIndex(b));
             _lines[b].MoveTo(_spawner.GetPositionByIndex(a));
             TimetableLine tmp = _lines[a];
