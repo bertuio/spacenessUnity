@@ -6,13 +6,15 @@ public class TableAnimator : MonoBehaviour
 {
     public Animator animator;
 
-    public void Close() 
+    public void Close()
     {
-        animator.SetBool("Opened", false);
+        animator.Play("Scene", 0, Mathf.Clamp01(animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
+        animator.SetFloat("Speed", 1.0f);
     }
 
-    public void Open() 
+    public void Open()
     {
-        animator.SetBool("Opened", true);
+        animator.Play("Scene", 0, Mathf.Clamp01(animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
+        animator.SetFloat("Speed", -1.0f);
     }
 }
