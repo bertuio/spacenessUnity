@@ -15,47 +15,63 @@ namespace Timetable {
 
         private void OnEnable()
         {
-            _grabber.OnMoveDown += MoveDown;
-            _grabber.OnMoveUp += MoveUp;
+            _grabber.TryMoveDown += MoveDown;
+            _grabber.TryMoveUp += MoveUp;
         }
 
         private void OnDisable()
         {
-            _grabber.OnMoveDown -= MoveDown;
-            _grabber.OnMoveUp -= MoveUp;
+            _grabber.TryMoveDown -= MoveDown;
+            _grabber.TryMoveUp -= MoveUp;
         }
 
         private void SwapLines(int a, int b) 
         {
+            Debug.Log($"Swaping {a} and {b}");
             _audioSwaped.Play();
-            _lines[a].MoveTo(_spawner.GetPositionByIndex(b));
-            _lines[b].MoveTo(_spawner.GetPositionByIndex(a));
-            TimetableLine tmp = _lines[a];
-            _lines[a] = _lines[b];
-            _lines[b] = tmp;
+            
+            string tmpstring = _lines[a].Value;
+            _lines[a].SetText(_lines[b].Value);
+            _lines[b].SetText(tmpstring);
+
+            int tmpIndex = _lines[b].Index;
+            _lines[b].Index = _lines[a].Index;
+            _lines[a].Index = tmpIndex;
+
             CheckWinCondition();
         }
         
 
-        private void MoveDown(TimetableLine line) 
+        private TimetableLine MoveDown(TimetableLine line)
         {
-            int index = _lines.FindIndex((v) => (v==line));
-
-            if (index < _lines.Count - 1)
+            try
             {
-                SwapLines(index, index + 1);
+                int index = _lines.FindIndex((v) => (v==line));
+
+                if (index < _lines.Count - 1)
+                {
+                    SwapLines(index, index + 1);
+                    return _lines[index+1];
+                }
+                return _lines[index];
             }
+            catch (Exception) { return null; }
         }
 
-        private void MoveUp(TimetableLine line) 
+        private TimetableLine MoveUp(TimetableLine line) 
         {
-            int index = _lines.FindIndex((v) => (v == line));
-
-            if (index > 0)
+            try
             {
-                SwapLines(index, index - 1);
-            }
+                int index = _lines.FindIndex((v) => (v == line));
 
+                if (index > 0)
+                {
+                    SwapLines(index, index - 1);
+                    return _lines[index - 1];
+                }
+                return _lines[index];
+            }
+            catch (Exception) { return null; }
         }
 
         private void PrepareMinigame()
@@ -102,6 +118,7 @@ namespace Timetable {
             {
                 Destroy(line.gameObject);
             }
+            Debug.Log("clearing");
             _lines.Clear();
         }
     }

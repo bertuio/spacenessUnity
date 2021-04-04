@@ -6,12 +6,12 @@ using UnityEngine.InputSystem;
 
 public class LineGrabber : MonoBehaviour
 {
-    [SerializeField] private InputAction _onLeftMouseDown, _onLeftMouseUp, _onMouseMoveY;
+    [SerializeField] private InputAction _onLeftMouseDown;
     [SerializeField] private float _mouseLimit;
-    public Action<TimetableLine> OnMoveUp, OnMoveDown;
-    private Action<InputAction.CallbackContext> _leftMouseDownCallback, _leftMouseUpCallback;
+    public Func<TimetableLine,TimetableLine> TryMoveUp, TryMoveDown;
+    private Action<InputAction.CallbackContext> _leftMouseDownCallback;
     private TimetableLine _pickedLine;
-    private float _mouseDelta;
+
     private void OnDisable()
     {
         Deactivate();
@@ -24,14 +24,10 @@ public class LineGrabber : MonoBehaviour
     public void Activate()
     {
         _onLeftMouseDown.Enable();
-        _onLeftMouseUp.Enable();
-        _onMouseMoveY.Disable();
     }
     public void Deactivate()
     {
         _onLeftMouseDown.Disable();
-        _onLeftMouseUp.Disable();
-        _onMouseMoveY.Disable();
     }
 
     private void InitializeInputActions()
@@ -40,60 +36,37 @@ public class LineGrabber : MonoBehaviour
         {
             TryGrab();
         };
-        _leftMouseUpCallback = (InputAction.CallbackContext context) =>
-        {
-            StopGrabbing();
-        };
         _onLeftMouseDown.performed += _leftMouseDownCallback;
-        _onLeftMouseUp.performed += _leftMouseUpCallback;
     }
-    private TimetableLine TraceLine() 
+    private void TraceInteractive()
     {
-        RaycastHit hit;
-        Vector2 mousePosition = Mouse.current.position.ReadValue();
-        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-        TimetableLine line;
+        try
+        {
+            Vector2 mousePosition = Mouse.current.position.ReadValue();
+            Ray ray = Camera.main.ScreenPointToRay(mousePosition);
 
-        if (Physics.Raycast(ray, out hit) && hit.collider.TryGetComponent(out line))
-        {
-            return line;
-        }
-        else
-        {
-            return null;
-        }
-    }
-
-    private void _mouseMoveYCallback(InputAction.CallbackContext context) 
-    {
-        _mouseDelta += context.ReadValue<float>();
-        if (Mathf.Abs(_mouseDelta) > _mouseLimit)
-        {
-            if (_mouseDelta < 0)
+            if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                OnMoveDown?.Invoke(_pickedLine);
+                if (hit.collider.TryGetComponent(out TimetableLine line))
+                {
+                    if (_pickedLine) _pickedLine.Dislight();
+                    _pickedLine = line;
+                    _pickedLine.Enlight();
+                }
+                else if (_pickedLine && hit.collider.TryGetComponent(out MinigameButton button))
+                {
+                    _pickedLine.Dislight();
+                    if (button.Direction == MinigameButton.ButtonDirection.UP) _pickedLine = TryMoveUp.Invoke(_pickedLine);
+                    else _pickedLine = TryMoveDown.Invoke(_pickedLine);
+                    _pickedLine.Enlight();
+                }
             }
-            else
-            {
-                OnMoveUp?.Invoke(_pickedLine);
-            }
-            _mouseDelta = 0;
         }
+        catch (Exception){ }
     }
 
     private void TryGrab() 
     {
-        _pickedLine = TraceLine();
-        if (!_pickedLine) return;
-        _onMouseMoveY.performed += _mouseMoveYCallback;
-
-        _onMouseMoveY.Enable();
-    }
-
-    private void StopGrabbing() 
-    {
-        _onMouseMoveY.Disable(); 
-        _onMouseMoveY.performed -= _mouseMoveYCallback;
-        _mouseDelta = 0;
+        TraceInteractive();
     }
 }

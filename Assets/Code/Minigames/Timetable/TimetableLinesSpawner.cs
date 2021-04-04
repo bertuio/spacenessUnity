@@ -10,25 +10,23 @@ namespace Timetable {
         [SerializeField] private TimetableLine _linePrefab;
         [SerializeField] private Transform _parent;
         [SerializeField] private Transform _firstSpawn;
-        private Vector3 _modifiedScale;
+        [SerializeField] private MeshFilter _extentsFilter;
         private Vector3 _scale;
         private Vector3 _prefabSize;
         
         private void Start()
         {
-            _prefabSize = _linePrefab.GetComponent<MeshFilter>().sharedMesh.bounds.size;
+            _prefabSize = _linePrefab.ExtentsFilter.sharedMesh.bounds.size;
+            _scale = _linePrefab.ExtentsFilter.transform.localScale;
         }
 
         public List<TimetableLine> Spawn(TimetableVariant variant)
         {
-            _scale = _linePrefab.transform.localScale;
-            _modifiedScale = new Vector3(_scale.x/variant.Lines.Count, _scale.y * Mathf.Min((float)_height / variant.Lines.Count, 1.0f), _scale.z);
             List<TimetableLine> _lineObjects = new List<TimetableLine>();
             for (int i=0; i<variant.Lines.Count; i++) 
             {
-                TimetableLine line = Instantiate(_linePrefab,  _parent);
-                line.transform.localScale = _modifiedScale;
-                line.Value.text = variant.Lines[i];
+                TimetableLine line = Instantiate(_linePrefab, _parent, false);
+                line.SetText(variant.Lines[i]);
                 line.Index = i;
                 _lineObjects.Add(line);
             }
@@ -56,7 +54,7 @@ namespace Timetable {
 
         public Vector3 GetPositionByIndex(int index) 
         {
-            return _firstSpawn.position - index * new Vector3(_modifiedScale.x * _prefabSize.x, _prefabSize.y * _modifiedScale.y, 0);
+            return _firstSpawn.position - index * new Vector3(0, _prefabSize.y*_scale.y, 0);
         }
     }
 }
