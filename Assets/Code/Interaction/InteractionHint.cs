@@ -6,18 +6,18 @@ using System;
 
 public class InteractionHint : Hint
 {
+    [SerializeField] private Animator _hintAnimator;
     private void Start()
     {
         Hide();
     }
     public override void Display()
     {
-        Debug.Log("Displaying");
-        _drawings.gameObject.SetActive(true);
+        _hintAnimator.SetBool("hide", false);
     }
 
     public override void Hide()
     {
-        _drawings.gameObject.SetActive(false);
+        _hintAnimator.SetBool("hide", true);
     }
 }
