@@ -12,6 +12,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _rotationInertion;
     [SerializeField] private CharacterController _controller;
     [SerializeField] private AudioSource _audioStep;
+    [SerializeField] private PlayerAnimations _animation;
+    [SerializeField] private Animator _animator;
+    //---
+    [SerializeField] private float _blendingInertia;
+    [SerializeField] private float _blendingMax;
+    private float _walkBlend = 0;
 
     private Quaternion _targetRotation;
     private float _stepTimer;
@@ -20,7 +26,6 @@ public class PlayerMovement : MonoBehaviour
     private Action<InputAction.CallbackContext> _leftClickCallback, _rightClickCallback, _mouseMoveXCallback;
     private Vector3 _flightTargetPosition;
 
-    public Action OnStartedWalking, OnStartedIdle;
     private void OnEnable()
     {
         InitializeInputActions();
@@ -51,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
             RestartStepTimer();
             if (_currentMovementAction != Walk)
             {
-                OnStartedWalking?.Invoke();
+                StartWalking();
                 SetAction(Walk);
             }
         };
@@ -63,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
             RestartStepTimer();
             if (_currentMovementAction != Walk)
             {
-                OnStartedWalking?.Invoke();
+                StartWalking();
                 SetAction(Walk);
             }
         };
@@ -99,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
         _controller.enabled = false;
         OnLeftClick.Disable();
         OnRightClick.Disable();
-        OnStartedIdle?.Invoke();
+        StopWalking();
         SetAction(Idle);
     }
 
@@ -109,7 +114,7 @@ public class PlayerMovement : MonoBehaviour
         OnLeftClick.Disable();
         OnRightClick.Disable();
         OnMouseMoveX.Disable();
-        OnStartedIdle?.Invoke();
+        StopWalking();
         SetAction(Idle);
     }
 
@@ -128,15 +133,16 @@ public class PlayerMovement : MonoBehaviour
     private void Idle() 
     {
         ApplyBodyRotation();
+        _controller.Move(_walkBlend/_blendingMax*transform.forward * _baseSpeed * Time.deltaTime);
     }
 
     private void Walk() 
     {
         ApplyBodyRotation();
-        _controller.Move(transform.forward * _baseSpeed * Time.deltaTime);
+        _controller.Move(_walkBlend / _blendingMax * transform.forward * _baseSpeed * Time.deltaTime);
         if (UpdateStepTimer())
         {
-            OnStartedIdle?.Invoke();
+            StopWalking();
             SetAction(Idle);
         }
     }
@@ -156,5 +162,23 @@ public class PlayerMovement : MonoBehaviour
     {
         transform.position = Vector3.MoveTowards(transform.position, _flightTargetPosition, _baseSpeed*Time.deltaTime);
         ApplyBodyRotation();
+    }
+
+    public void StartWalking()
+    {
+        _blendingInertia = Mathf.Abs(_blendingInertia);
+    }
+
+    public void StopWalking()
+    {
+        _blendingInertia = -Mathf.Abs(_blendingInertia);
+    }
+
+    private void FixedUpdate()
+    {
+        if (_blendingInertia < 0 && _walkBlend > 0) { _walkBlend = Mathf.Clamp(_walkBlend + _blendingInertia, 0, _blendingMax); }
+        if (_blendingInertia > 0 && _walkBlend < _blendingMax) { _walkBlend = Mathf.Clamp(_walkBlend + _blendingInertia, 0, _blendingMax); }
+
+        _animator.SetFloat("Speed", _walkBlend);
     }
 }

@@ -7,24 +7,27 @@ public class PlayerAnimations : MonoBehaviour
 {
     [SerializeField] private PlayerMovement _movement;
     [SerializeField] private Animator _animator;
-    private Action _startWalking;
-    private Action _stopWalking;
+    /*[SerializeField] private float _blendingInertia;
+    [SerializeField] private float _blendingMax;
 
-    private void OnEnable()
+    private float _walkBlend = 0;
+
+    public void StartWalking() 
     {
-        InitializeMotionEvents();
-        _movement.OnStartedWalking += _startWalking;
-        _movement.OnStartedIdle += _stopWalking;
-    }
-    private void InitializeMotionEvents()
-    {
-        _startWalking = () => { _animator.SetBool("Walking", true); };
-        _stopWalking = () => { _animator.SetBool("Walking", false); };
+        _blendingInertia = Mathf.Abs(_blendingInertia);
     }
 
-    private void OnDisable()
+    public void StopWalking() 
     {
-        _movement.OnStartedWalking -= _startWalking;
-        _movement.OnStartedIdle -= _stopWalking;
+        _blendingInertia = -Mathf.Abs(_blendingInertia);
     }
+
+    private void FixedUpdate()
+    {
+        if (_blendingInertia < 0 && _walkBlend > 0) { _walkBlend += _blendingInertia; }
+        if (_blendingInertia > 0 && _walkBlend < _blendingMax) { _walkBlend += _blendingInertia; }
+
+        _animator.SetFloat("Speed", _walkBlend);
+        Debug.Log(_walkBlend);
+    }*/
 }
