@@ -6,8 +6,15 @@ using UnityEngine;
 public class PlayerAnimations : MonoBehaviour
 {
     [SerializeField] private PlayerMovement _movement;
-    [SerializeField] private Animator _animator;
-    /*[SerializeField] private float _blendingInertia;
+    [SerializeField] private AudioSource _audioStep;
+
+    public void step()
+    {
+        _audioStep.Play();
+    }
+
+    /*[SerializeField] private Animator _animator;
+    [SerializeField] private float _blendingInertia;
     [SerializeField] private float _blendingMax;
 
     private float _walkBlend = 0;

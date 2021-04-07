@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class ShipControl : MonoBehaviour
 {
     [SerializeField] private InputAction _onVerticalMovement, _onHorizontalMovement;
-    public Action<Vector2> VelocityChagedCallback;
+    public Action<Vector2> VelocityChangedCallback;
     private Vector2 _axes = Vector2.zero;
     private void Awake()
     {
@@ -32,11 +32,11 @@ public class ShipControl : MonoBehaviour
     private void VerticalAxisCallback(InputAction.CallbackContext context)
     {
         _axes.y = context.ReadValue<float>();
-        VelocityChagedCallback?.Invoke(_axes);
+        VelocityChangedCallback?.Invoke(_axes);
     }
     private void HorizontalAxisCallback(InputAction.CallbackContext context)
     {
         _axes.x = context.ReadValue<float>();
-        VelocityChagedCallback?.Invoke(_axes);
+        VelocityChangedCallback?.Invoke(_axes);
     }
 }

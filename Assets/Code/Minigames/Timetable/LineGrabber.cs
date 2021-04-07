@@ -58,6 +58,7 @@ public class LineGrabber : MonoBehaviour
                     _pickedLine.Dislight();
                     if (button.Direction == MinigameButton.ButtonDirection.UP) _pickedLine = TryMoveUp.Invoke(_pickedLine);
                     else _pickedLine = TryMoveDown.Invoke(_pickedLine);
+                    button.Press();
                     _pickedLine.Enlight();
                 }
             }

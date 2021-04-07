@@ -13,7 +13,8 @@ public class StarshipMinigame : Minigame
         base.StartGame();
         _spaceInstance = Instantiate(_spacePrefab, new Vector3(100,100,100), Quaternion.identity, transform);
         _control.Activate();
-        _control.VelocityChagedCallback += _spaceInstance.SetSideVelocity;
+
+        _control.VelocityChangedCallback += _spaceInstance.SetSideVelocity;
         _spaceInstance.OnShipCrushed += FailGame;
         _spaceInstance.OnShipSuccsesed += FinishGame;
     }
@@ -44,8 +45,11 @@ public class StarshipMinigame : Minigame
     private void UnsubControlEvents()
     {
         _control.Deactivate();
-        _control.VelocityChagedCallback -= _spaceInstance.SetSideVelocity;
-        _spaceInstance.OnShipCrushed -= FailGame;
-        _spaceInstance.OnShipSuccsesed -= FinishGame;
+        if (_spaceInstance)
+        {
+            _control.VelocityChangedCallback -= _spaceInstance.SetSideVelocity;
+            _spaceInstance.OnShipCrushed -= FailGame;
+            _spaceInstance.OnShipSuccsesed -= FinishGame;
+        }
     }
 }
