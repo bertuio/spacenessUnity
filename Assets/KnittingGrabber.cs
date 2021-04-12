@@ -4,12 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class LineGrabber : MonoBehaviour
+public class KnittingGrabber : MonoBehaviour
 {
     [SerializeField] private InputAction _onLeftMouseDown;
-    public Func<TimetableLine,TimetableLine> TryMoveUp, TryMoveDown;
+    [SerializeField] private AudioSource _hitAudio;
     private Action<InputAction.CallbackContext> _leftMouseDownCallback;
-    private TimetableLine _pickedLine;
 
     private void OnDisable()
     {
@@ -46,26 +45,17 @@ public class LineGrabber : MonoBehaviour
 
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                if (hit.collider.TryGetComponent(out TimetableLine line))
+                if (hit.collider.TryGetComponent(out KnittingButton button))
                 {
-                    if (_pickedLine) _pickedLine.Dislight();
-                    _pickedLine = line;
-                    _pickedLine.Enlight();
-                }
-                else if (_pickedLine && hit.collider.TryGetComponent(out MinigameButton button))
-                {
-                    _pickedLine.Dislight();
-                    if (button.Direction == MinigameButton.ButtonDirection.UP) _pickedLine = TryMoveUp.Invoke(_pickedLine);
-                    else _pickedLine = TryMoveDown.Invoke(_pickedLine);
-                    button.Press();
-                    _pickedLine.Enlight();
+                    button.Click();
+                    _hitAudio.Play();
                 }
             }
         }
-        catch (Exception){ }
+        catch (Exception) { }
     }
 
-    private void TryGrab() 
+    private void TryGrab()
     {
         TraceInteractive();
     }

@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class Minigame : MonoBehaviour
+public class Minigame : MonoBehaviour
 {
+    protected Minigame(){}
+
     [SerializeField] protected MinigameCamera _minigameCamera;
     [SerializeField] protected MinigameInteractable _interactable;
     [SerializeField] private UnityEvent _onMinigameFinished;
