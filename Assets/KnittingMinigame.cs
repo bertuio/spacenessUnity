@@ -10,10 +10,12 @@ public class KnittingMinigame : Minigame
     private void OnEnable() 
     {
         _spawner.OnWinCondition += FinishGame;
+        _spawner.OnFailCondition += FailGame;
     }
     private void OnDisable()
     {
         _spawner.OnWinCondition -= FinishGame;
+        _spawner.OnFailCondition -= FailGame;
     }
     
     public override void StartGame()

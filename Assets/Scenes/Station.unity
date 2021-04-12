@@ -6337,7 +6337,7 @@ PrefabInstance:
       objectReference: {fileID: 401010236}
     - target: {fileID: 4533606345533031655, guid: c74a494c39aebcd48a8bcd56681e1b96, type: 3}
       propertyPath: _baseSpeed
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4533606345533031655, guid: c74a494c39aebcd48a8bcd56681e1b96, type: 3}
       propertyPath: _blendingMax
@@ -6524,6 +6524,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: KnittingMinigame
       objectReference: {fileID: 0}
+    - target: {fileID: 581150105442188506, guid: a413c8921e92c654c8012e984eb88fc1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 581150105442188506, guid: a413c8921e92c654c8012e984eb88fc1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.917
+      objectReference: {fileID: 0}
+    - target: {fileID: 581150105442188506, guid: a413c8921e92c654c8012e984eb88fc1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.404
+      objectReference: {fileID: 0}
+    - target: {fileID: 581150105442188506, guid: a413c8921e92c654c8012e984eb88fc1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9633839
+      objectReference: {fileID: 0}
+    - target: {fileID: 581150105442188506, guid: a413c8921e92c654c8012e984eb88fc1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.2681258
+      objectReference: {fileID: 0}
+    - target: {fileID: 581150105442188506, guid: a413c8921e92c654c8012e984eb88fc1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.000000029802319
+      objectReference: {fileID: 0}
+    - target: {fileID: 581150105442188506, guid: a413c8921e92c654c8012e984eb88fc1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.000000029802319
+      objectReference: {fileID: 0}
+    - target: {fileID: 581150105442188506, guid: a413c8921e92c654c8012e984eb88fc1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 31.106
+      objectReference: {fileID: 0}
     - target: {fileID: 625683666214217196, guid: a413c8921e92c654c8012e984eb88fc1, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -6567,6 +6599,26 @@ PrefabInstance:
     - target: {fileID: 625683666214217196, guid: a413c8921e92c654c8012e984eb88fc1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8092371703561110096, guid: a413c8921e92c654c8012e984eb88fc1, type: 3}
+      propertyPath: _baseSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8092371703561110096, guid: a413c8921e92c654c8012e984eb88fc1, type: 3}
+      propertyPath: _spawnRadius
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 8092371703561110096, guid: a413c8921e92c654c8012e984eb88fc1, type: 3}
+      propertyPath: _winCoefficient
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8092371703561110096, guid: a413c8921e92c654c8012e984eb88fc1, type: 3}
+      propertyPath: _failCoefficient
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8092371703561110096, guid: a413c8921e92c654c8012e984eb88fc1, type: 3}
+      propertyPath: _sloweringCoefficient
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 8630964298716111961, guid: a413c8921e92c654c8012e984eb88fc1, type: 3}
       propertyPath: m_LocalScale.x

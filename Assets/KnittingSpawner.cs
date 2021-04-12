@@ -7,26 +7,30 @@ public class KnittingSpawner : MonoBehaviour
 {
     [SerializeField] private KnittingButton _prefab;
     [SerializeField] private Transform _parent;
-    [SerializeField] private float _speed;
+    [SerializeField] private float _baseSpeed;
     [SerializeField] private float _spawnRadius;
-    [SerializeField] private int _targetsCount;
+    [SerializeField] private float _failCoefficient, _winCoefficient;
+    [SerializeField] private float _sloweringCoefficient;
 
+    private Vector3 _direction;
+    private KnittingButton _button;
     private float _speedMultiplyer = 1f;
-    private float _sloweringCoefficient = .9f;
     private Action _onUpdate;
-    public Action OnWinCondition;
+    public Action OnWinCondition, OnFailCondition;
 
-    private Dictionary<KnittingButton, Vector3> _buttons = new Dictionary<KnittingButton, Vector3>();
     public void StartSpawning() 
     {
-        for (int i = 0; i < _targetsCount; i++)
-        {
-            KnittingButton button = Instantiate(_prefab, _parent);
-            Vector3 direction = (Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360)) * new Vector3(1, 0, 0));
-            button.transform.localPosition += direction * _spawnRadius * UnityEngine.Random.Range(0.5f, 1f);
-            AddButton(button, -direction/1000*_speed);
-        }
+        SpawnButton();
         _onUpdate += MoveButtons;
+    }
+
+    private void SpawnButton() 
+    {
+        if (_button) Destroy(_button.gameObject);
+        _button = Instantiate(_prefab, _parent);
+        _button.OnClicked += ButtonClickedCallback;
+        _direction = (Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360)) * new Vector3(1, 0, 0));
+        _button.transform.localPosition += _direction * _spawnRadius * UnityEngine.Random.Range(0.8f, 1.2f);
     }
 
     private void OnDisable()
@@ -36,27 +40,21 @@ public class KnittingSpawner : MonoBehaviour
 
     private void MoveButtons()
     {
-        foreach (KeyValuePair<KnittingButton, Vector3> pair in _buttons)
+        if (_button.transform.localPosition.magnitude <=  .04f)
         {
-            if (pair.Key.transform.localPosition.magnitude >= _spawnRadius)
-            {
-
-                pair.Key.transform.localPosition = new Vector3(0, 0, pair.Key.transform.localPosition.z);
-            }
-            pair.Key.transform.localPosition += pair.Value * _speedMultiplyer;
+            _speedMultiplyer /= _sloweringCoefficient;
+            SpawnButton();
+            if (_speedMultiplyer >= _failCoefficient) OnFailCondition?.Invoke();
         }
+        _button.transform.localPosition += -_direction/1000*_baseSpeed*_speedMultiplyer;
     }
 
-    private void SlowDown()
+    private void ButtonClickedCallback()
     {
         _speedMultiplyer *= _sloweringCoefficient;
-    }
-
-    public void AddButton(KnittingButton button, Vector3 direction)
-    {
-        button.OnClicked += SlowDown;
-        button.OnClicked += delegate { _buttons.Remove(button); if (_buttons.Count == 0) OnWinCondition?.Invoke(); };
-        _buttons.Add(button, direction);
+        Destroy(_button.gameObject);
+        if (_speedMultiplyer <= _winCoefficient) { OnWinCondition?.Invoke(); return; }
+        SpawnButton();
     }
 
     private void FixedUpdate()
@@ -67,11 +65,7 @@ public class KnittingSpawner : MonoBehaviour
     public void Flush()
     {
         _onUpdate -= MoveButtons;
-        foreach (KeyValuePair<KnittingButton, Vector3> pair in _buttons) 
-        {
-            Destroy(pair.Key.gameObject);
-        }
-        _buttons.Clear();
+        if (_button) Destroy(_button.gameObject);
         _speedMultiplyer = 1;
     }
 }
