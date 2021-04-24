@@ -29,7 +29,7 @@ public class ResearchUiDrawer : MonoBehaviour
 
     public void ClearIcons() 
     {
-        _instantiatedImages.ForEach((Image image)=>Destroy(image));
+        _instantiatedImages.ForEach((Image image)=>Destroy(image.gameObject));
         _instantiatedImages.Clear();
     }
 }

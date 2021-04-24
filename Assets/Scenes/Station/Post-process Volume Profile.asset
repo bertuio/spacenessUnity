@@ -69,7 +69,7 @@ MonoBehaviour:
     max: 360
   depthThreshold:
     m_OverrideState: 1
-    m_Value: {x: 0.04906771, y: 0.23757604}
+    m_Value: {x: 0, y: 0.037576035}
     min: 0
     max: 1
   color:
