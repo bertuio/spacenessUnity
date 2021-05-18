@@ -10,7 +10,7 @@ namespace Timetable {
         [SerializeField] private TimetableGenerator _generator;
         [SerializeField] private TimetableLinesSpawner _spawner;
         [SerializeField] private LineGrabber _grabber;
-        [SerializeField] private AudioSource _audioSwaped;
+        [SerializeField] private AudioClip[] _audioSwaped;
         private List<TimetableLine> _lines = new List<TimetableLine>();
 
         private void OnEnable()
@@ -28,7 +28,7 @@ namespace Timetable {
         private void SwapLines(int a, int b) 
         {
             Debug.Log($"Swaping {a} and {b}");
-            _audioSwaped.Play();
+            EmitSound(_audioSwaped[UnityEngine.Random.Range(0, _audioSwaped.Length)]);
             
             string tmpstring = _lines[a].Value;
             _lines[a].SetText(_lines[b].Value);

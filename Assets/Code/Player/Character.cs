@@ -8,7 +8,18 @@ public class Character : MonoBehaviour
     [SerializeField] private CameraController _attachedCameraController;
     [SerializeField] private PlayerMovement _movement;
     [SerializeField] private PlayerInteraction _interaction;
+
+    private static Character _character;
+    public static Character GetCharacter() 
+    {
+        return _character;
+    }
     public CameraController AttachedCameraController { get => _attachedCameraController; private set { }}
+
+    private void Start()
+    {
+        _character = this;
+    }
 
     private void OnEnable()
     {

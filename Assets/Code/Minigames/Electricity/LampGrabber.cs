@@ -95,6 +95,7 @@ public class LampGrabber : MonoBehaviour
             _pickedLamp = null;
             return;
         }
+
         _onMouseMove.performed += MouseMoveCallback;
         
         _onMouseMove.Enable();

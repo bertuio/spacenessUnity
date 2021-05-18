@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ElectricityMinigame : Minigame
 {
+    [SerializeField] private AudioClip[] _clicks;
     [SerializeField] private LampSpawner _spawner;
     [SerializeField] private LampGrabber _grabber;
     [SerializeField] private float _corruptionProbability;
@@ -37,10 +38,11 @@ public class ElectricityMinigame : Minigame
 
     private void OnLampEnableCallback() 
     {
-        Recorrupt();
+        TryRecorrupt();
+        EmitSound(_clicks[Random.Range(0, _clicks.Length)]);
         CheckWinCondition();
     }
-    private void Recorrupt() 
+    private void TryRecorrupt() 
     {
         if (Random.Range(0.000f, 1.000f)<=_recorruptionProbability) 
         {

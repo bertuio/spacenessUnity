@@ -2,76 +2,49 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 [RequireComponent(typeof(SphereCollider))]
 public class Vortex : MonoBehaviour
 {
-    [SerializeField]
-    private string scene;
-    private GameObject characterGo;
-    private Character character;
-    [SerializeField]
-    private bool enterence;
-    public bool Block { get; set; }
+    [SerializeField] private string _sceneName = "Vortex";
+    [SerializeField] private float _entranceRadius;
+    private SphereCollider _collider;
+    private const int CAMERA_FOV_ADDITION = 30;
+    private const float MIN_TIMESCALE = .4f;
 
-    [SerializeField]
-    private SphereCollider slowerer;
-
-    private Vector3 slowererCenter;
-    private float slowererRadius;
-    private float ratio;
-
-    private void OnEnable()
+    private void Start()
     {
-        slowererCenter = transform.position;
-        slowererRadius = slowerer.radius;
+        _collider = GetComponent<SphereCollider>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnDrawGizmosSelected()
     {
-        if (other.TryGetComponent(out character)) 
-        {
-            characterGo = other.gameObject;
-        }
-    }
-
-    public void Teleport() 
-    {
-        Block = true;
-        Time.timeScale = 1;
-        SceneManager.LoadScene(scene);
-        if (enterence) FindObjectOfType<Countdown>()?.Pause();
-        else FindObjectOfType<Countdown>()?.Resume();
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.TryGetComponent(out character))
-        {
-            UpdateTimescale(1);
-            UpdateFov(1);
-        }
+        Gizmos.DrawWireSphere(transform.position, _entranceRadius);
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (character && !Block && other.gameObject == characterGo)
+        float distance = Vector3.Distance(Vector3.ProjectOnPlane(other.transform.position, Vector3.up), Vector3.ProjectOnPlane(transform.position, Vector3.up));
+
+        int fov = (int) Mathf.Lerp(0, CAMERA_FOV_ADDITION, Mathf.InverseLerp(1,0,distance/_collider.radius));
+
+        Time.timeScale = Mathf.Max(distance / _collider.radius, MIN_TIMESCALE);
+
+        Character.GetCharacter().AttachedCameraController.SetAdditiveFov(fov);
+        OnVortexDistanceUpdate(distance);
+    }
+
+    private void OnVortexDistanceUpdate(float distance)
+    {
+        if (distance < _entranceRadius) 
         {
-            UpdateRatio(other.transform);
-            UpdateTimescale(ratio);
-            UpdateFov(ratio);
+            //if (SceneManager.GetSceneByName(_sceneName).IsValid())
+                Time.timeScale = 1;
+                SceneManager.LoadScene(_sceneName);
+            //else {
+            //    Debug.Log("Can't load scene. Probably wrong name in vortex settings or it is not included in build settings.");
+            //}
         }
-    }
-    private void UpdateRatio(Transform other) 
-    {
-        ratio = Vector3.Distance(slowererCenter, other.transform.position) / slowererRadius;
-    }
-    private void UpdateTimescale(float t)
-    {
-        Time.timeScale = Mathf.Clamp(1 / (1 + Mathf.Exp(-7f * (t - 0.7f))), 0.05f, 1f);
-    }
-    private void UpdateFov(float t)
-    {
-        character.AttachedCameraController.VortexAffect(Mathf.Clamp(t, 0.05f, 1f));
     }
 }

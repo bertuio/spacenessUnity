@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 1356024880339800054}
   - component: {fileID: 1356024880339800041}
   - component: {fileID: 1356024880339800040}
+  - component: {fileID: 109504435400515696}
   m_Layer: 5
   m_Name: SplashScreen
   m_TagString: Untagged
@@ -181,3 +182,15 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
+--- !u!114 &109504435400515696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356024880339800042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1066090888089034486e26af8c416e60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

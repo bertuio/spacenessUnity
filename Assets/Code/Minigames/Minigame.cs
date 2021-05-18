@@ -4,21 +4,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(AudioSource))]
 public class Minigame : MonoBehaviour
 {
-    protected Minigame() { }
-
     [SerializeField] protected MinigameCamera _minigameCamera;
     [SerializeField] protected MinigameInteractable _interactable;
     [SerializeField] private UnityEvent _onMinigameFinished;
-    [SerializeField] private AudioSource _audioSucceed, _audioFailed;
+    [SerializeField] private AudioClip _audioSucceed, _audioFailed;
     [SerializeField] private TutorialContainer _tutorial;
     [SerializeField] private bool _showTutorial;
     [SerializeField] private float _tutorialDelay;
 
+    private AudioSource _audioEmitter;
+
+    protected void EmitSound(AudioClip clip) 
+    {
+        _audioEmitter.clip = clip;
+        _audioEmitter.Play();
+    }
     public virtual void StartGame()
     {
-
+        
     }
     public virtual void InterruptGame()
     {
@@ -26,16 +32,17 @@ public class Minigame : MonoBehaviour
     }
     public virtual void FinishGame()
     {
+        Countdown.SpeedDown();
         DesetupPlayer();
         _onMinigameFinished?.Invoke();
         _interactable.OnInteractionEndedForced?.Invoke();
-        if (_audioSucceed) _audioSucceed.Play();
+        if (_audioSucceed) EmitSound(_audioSucceed);
     }
     public virtual void FailGame()
     {
         DesetupPlayer();
         _interactable.OnInteractionEndedForced?.Invoke();
-        if (_audioFailed) _audioFailed.Play();
+        if (_audioFailed) EmitSound(_audioFailed);
     }
 
     private void SetupPlayer() 
@@ -54,6 +61,7 @@ public class Minigame : MonoBehaviour
     {
         _interactable.OnInteracted += HandleInteractionDispatch;
         _interactable.OnInteractionEnded += InterruptGame;
+        _audioEmitter = GetComponent<AudioSource>();
     }
 
     private void HandleInteractionDispatch() 

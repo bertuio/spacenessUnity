@@ -13,6 +13,9 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private float _angularSmoothRate;
 
+    [SerializeField]
+    private int _baseFov;
+
     private float defaultFov;
     private float _nodAngle;
     private Transform _parentalTransform;
@@ -22,12 +25,14 @@ public class CameraController : MonoBehaviour
     private MinigameCamera _minigameCamera;
     private Camera camera;
     private float targetFov;
-
-    public void VortexAffect(float t)
+    
+    /// <summary>
+    /// Sets additive Camera Fov smoothly
+    /// </summary>
+    public void SetAdditiveFov(int angle) 
     {
-        targetFov = defaultFov * (Mathf.Clamp(1.8f-Mathf.Pow(t,2),1,2));
+        targetFov = _baseFov + angle;
     }
-
     private void OnEnable()
     {
         camera = GetComponent<Camera>();

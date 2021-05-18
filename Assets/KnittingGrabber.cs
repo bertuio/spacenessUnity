@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 public class KnittingGrabber : MonoBehaviour
 {
     [SerializeField] private InputAction _onLeftMouseDown;
-    [SerializeField] private AudioSource _hitAudio;
     private Action<InputAction.CallbackContext> _leftMouseDownCallback;
 
     private void OnDisable()
@@ -48,7 +47,6 @@ public class KnittingGrabber : MonoBehaviour
                 if (hit.collider.TryGetComponent(out KnittingButton button))
                 {
                     button.Click();
-                    _hitAudio.Play();
                 }
             }
         }
