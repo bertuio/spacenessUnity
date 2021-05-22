@@ -11,6 +11,7 @@ public class KnittingSpawner : MonoBehaviour
     [SerializeField] private float _spawnRadius;
     [SerializeField] private float _failCoefficient, _winCoefficient;
     [SerializeField] private float _sloweringCoefficient;
+    public event Action OnButtonClicked, OnButtonFailed;
 
     private Vector3 _direction;
     private KnittingButton _button;
@@ -42,6 +43,7 @@ public class KnittingSpawner : MonoBehaviour
     {
         if (_button.transform.localPosition.magnitude <=  .04f)
         {
+            OnButtonFailed?.Invoke();
             _speedMultiplyer /= _sloweringCoefficient;
             SpawnButton();
             if (_speedMultiplyer >= _failCoefficient) OnFailCondition?.Invoke();
@@ -51,6 +53,7 @@ public class KnittingSpawner : MonoBehaviour
 
     private void ButtonClickedCallback()
     {
+        OnButtonClicked?.Invoke();
         _speedMultiplyer *= _sloweringCoefficient;
         Destroy(_button.gameObject);
         if (_speedMultiplyer <= _winCoefficient) { OnWinCondition?.Invoke(); return; }

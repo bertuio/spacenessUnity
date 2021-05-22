@@ -7,7 +7,7 @@ public class DDOLSpawner : MonoBehaviour
     static DDOLSpawner spawner;
 
     [SerializeField]
-    private List<GameObject> objectList;
+    private List<DontDestroy> objectList;
 
     private void Awake()
     {
@@ -26,7 +26,7 @@ public class DDOLSpawner : MonoBehaviour
 
     public void spawnObjects() 
     {
-        foreach (GameObject gameobject in objectList) 
+        foreach (DontDestroy gameobject in objectList) 
         {
             Instantiate(gameobject);
         }

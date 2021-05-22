@@ -4885,7 +4885,6 @@ GameObject:
   - component: {fileID: 8931651687117126814}
   - component: {fileID: 8334173232470370665}
   - component: {fileID: 6853336995692434529}
-  - component: {fileID: 8334173232470370666}
   m_Layer: 0
   m_Name: AnalizeMinigame
   m_TagString: Untagged
@@ -5038,7 +5037,7 @@ MonoBehaviour:
   _spawnTransform: {fileID: 8398686596413430322}
   _start: {fileID: 8931651687542587045}
   _end: {fileID: 8931651688342289482}
-  _conveyorSpeed: 0.002
+  _conveyorSpeed: 0.001
 --- !u!114 &8931651687117126814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5055,24 +5054,12 @@ MonoBehaviour:
   _interactable: {fileID: 3620294256762285446}
   _onMinigameFinished:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Door, Assembly-CSharp
-        m_MethodName: OpenDoor
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _audioSucceed: {fileID: 8334173232470370666}
-  _audioFailed: {fileID: 6853336995692434529}
-  _tutorial: {fileID: 0}
+      m_Calls: []
+  _audioSucceed: {fileID: 8300000, guid: 67de53e399c33414c9d512d5ce5b9355, type: 3}
+  _audioFailed: {fileID: 8300000, guid: 740a2fd6361b82c4bbd42b27313c86ca, type: 3}
+  _tutorial: {fileID: 9064283026487304626}
   _showTutorial: 1
-  _tutorialDelay: 5
+  _tutorialDelay: 10
   _spawner: {fileID: 8931651687117127521}
   _picker: {fileID: 8334173232470370665}
   _display: {fileID: 6891742815802599711}
@@ -5119,102 +5106,6 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 740a2fd6361b82c4bbd42b27313c86ca, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.093
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!82 &8334173232470370666
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 602206389759727606}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 67de53e399c33414c9d512d5ce5b9355, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 0.136
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -6747,15 +6638,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8459766343363656749, guid: cb788457a8ca06f4595736daa1442ef2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8459766343363656749, guid: cb788457a8ca06f4595736daa1442ef2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0073
+      value: 0.00976
       objectReference: {fileID: 0}
     - target: {fileID: 8459766343363656749, guid: cb788457a8ca06f4595736daa1442ef2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.03386
+      value: 0.03202
       objectReference: {fileID: 0}
     - target: {fileID: 8459766343363656749, guid: cb788457a8ca06f4595736daa1442ef2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6789,6 +6680,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tutorial
       objectReference: {fileID: 0}
+    - target: {fileID: 8459766343363656754, guid: cb788457a8ca06f4595736daa1442ef2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7c51c656c60250340ab1f3b9576fd60e, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb788457a8ca06f4595736daa1442ef2, type: 3}
 --- !u!4 &9064283026487304620 stripped
@@ -6796,6 +6691,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8459766343363656749, guid: cb788457a8ca06f4595736daa1442ef2, type: 3}
   m_PrefabInstance: {fileID: 625417373832060289}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &9064283026487304626 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8459766343363656755, guid: cb788457a8ca06f4595736daa1442ef2, type: 3}
+  m_PrefabInstance: {fileID: 625417373832060289}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4218f95016ebf9040bf53b108994d0c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4708225750442214999
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ namespace Timetable {
         [SerializeField] private TimetableLine _linePrefab;
         [SerializeField] private Transform _parent;
         [SerializeField] private Transform _firstSpawn;
-        [SerializeField] private MeshFilter _extentsFilter;
+
         private Vector3 _scale;
         private Vector3 _prefabSize;
         
