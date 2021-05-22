@@ -1,16 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MineralResearchBoulder : MonoBehaviour
 {
+    [SerializeField] private Material _rareMaterial;
     private Vector3 _rotation;
+    private bool _rare = false;
+    public event System.Action<bool> OnBoulderGrabbed;
+    private const int _power = 1;
     public string Id { get; private set; }
+    public bool Rare { get => _rare; set => _rare = value; }
+
     private static string[] _prefixes = { "HK", "UN", "EPQ", "DRM", "ABR" };
+
+    public void MakeRare() 
+    {
+        if (TryGetComponent(out MeshRenderer renderer)) 
+        {
+            renderer.material = _rareMaterial;
+        }
+        Rare = true;
+    }
     private void Awake()
     {
         Id = GenerateId();
-        _rotation = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+        _rotation = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * _power;
         Debug.Log(Id);
     }
 
@@ -21,6 +34,7 @@ public class MineralResearchBoulder : MonoBehaviour
 
     public void Grab() 
     {
+        OnBoulderGrabbed?.Invoke(Rare);
         Destroy(gameObject);
     }
 

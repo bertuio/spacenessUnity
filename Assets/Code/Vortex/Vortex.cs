@@ -7,7 +7,8 @@ using System;
 [RequireComponent(typeof(SphereCollider))]
 public class Vortex : MonoBehaviour
 {
-    [SerializeField] private string _sceneName = "Vortex";
+    [SerializeField] private bool _isEnter = true;
+    [SerializeField] private string _sceneName = "Vortex1";
     [SerializeField] private float _entranceRadius;
     private SphereCollider _collider;
     private const int CAMERA_FOV_ADDITION = 30;
@@ -40,11 +41,25 @@ public class Vortex : MonoBehaviour
         if (distance < _entranceRadius) 
         {
             //if (SceneManager.GetSceneByName(_sceneName).IsValid())
-                Time.timeScale = 1;
-                SceneManager.LoadScene(_sceneName);
+                MakeTransition();
             //else {
             //    Debug.Log("Can't load scene. Probably wrong name in vortex settings or it is not included in build settings.");
             //}
         }
+    }
+
+    private void MakeTransition() 
+    {
+        if (_isEnter)
+        {
+            Countdown.Pause();
+        }
+        else 
+        {
+            Countdown.Unpause();
+        }
+
+        Time.timeScale = 1;
+        SceneManager.LoadScene(_sceneName);
     }
 }

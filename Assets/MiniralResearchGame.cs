@@ -13,8 +13,8 @@ public class MiniralResearchGame : MonoBehaviour
     [SerializeField] private ResearchVariantGenerator _generator;
     [SerializeField] private ResearchTurnDeadzone _deadzonePrefab;
     [SerializeField] private ResearchUiDrawer _drawer;
-    [SerializeField] private AudioSource _audioGoingNext, _audioSucceed, _audioGoingBack;
     [SerializeField] private InputAction _anyKeyAction;
+    [SerializeField] private AudioSource _audioGoingNext, _audioSucceed, _audioGoingBack;
     [SerializeField] private MineralResearchBoulderGrabber _grabber;
     [SerializeField] private UnityEvent _minigameSucceedCallback;
     [SerializeField] private List<string> retractionImmune;
@@ -24,13 +24,15 @@ public class MiniralResearchGame : MonoBehaviour
     private Vector3 _currentTargetPostion;
     private int _currentTarget = 0;
     private int _currentAction = 0;
+    [SerializeField] private float _deltaTimer = 1f;
     private List<qtEvent> _currentEvents;
-    
+    [SerializeField] private ResearchTimer _timer;
+
     private void OnEnable()
     {
         _enter.OnEnteted += CharacterEnteredCallback;
         _anyKeyAction.started += CheckMissQte;
-        _grabber.OnBoulderGrabbed += _minigameSucceedCallback.Invoke;
+        _grabber.OnRareBoulderGot += _minigameSucceedCallback.Invoke;
 
         foreach (InputDevice device in InputSystem.devices)
         {
@@ -46,9 +48,12 @@ public class MiniralResearchGame : MonoBehaviour
 
     private void OnDisable()
     {
+        _timer.OnTimeExceeded -= GoBack;
         _enter.OnEnteted -= CharacterEnteredCallback;
         _anyKeyAction.started -= CheckMissQte;
-        _grabber.OnBoulderGrabbed -= _minigameSucceedCallback.Invoke;
+        _grabber.OnRareBoulderGot -= _minigameSucceedCallback.Invoke;
+        _grabber.Deactivate();
+        _timer.Hide();
     }
 
     private void CheckMissQte(InputAction.CallbackContext context) 
@@ -56,7 +61,6 @@ public class MiniralResearchGame : MonoBehaviour
         Debug.Log("Check");
         if (context.control.path != _currentEvents[_currentAction].InputEvent.bindings[0].path.Replace("<", "/").Replace(">", ""))
         {
-            _currentEvents[_currentAction].InputEvent.Disable();
             GoBack();
         }
     }
@@ -69,21 +73,26 @@ public class MiniralResearchGame : MonoBehaviour
 
     private void StartGame(Character character)
     {
+        _timer.OnTimeExceeded += GoBack;
         _character = character;
         _character.LockMovement();
         _currentTargetPostion = GetWorldPosition(_currentTarget);
         _character.FlyTo(_currentTargetPostion);
         GenerateTriggers();
+        _grabber.Activate();
+        _timer.Show();
     }
 
     private void Finishgame()
     {
+        _timer.OnTimeExceeded -= GoBack;
         _anyKeyAction.Disable();
         _character.UnlockMovement();
         _character.StopFly();
         _deadzones.ForEach((ResearchTurnDeadzone deadzone) => { Destroy(deadzone); });
         _deadzones.Clear();
-
+        _grabber.Deactivate();
+        _timer.Hide();
     }
 
     private void GenerateTriggers()
@@ -107,6 +116,7 @@ public class MiniralResearchGame : MonoBehaviour
             _currentEvents[i].InputEvent.performed += InputActionPerformed;
         }
         _currentEvents[0].InputEvent.Enable();
+        _timer.isPlaying = true;
     }
 
     private Vector3 GetWorldPosition(int point) 
@@ -140,15 +150,22 @@ public class MiniralResearchGame : MonoBehaviour
         _currentTargetPostion = _lineRenderer.transform.TransformPoint(_lineRenderer.GetPosition(_currentTarget));
         _character.FlyTo(_currentTargetPostion);
         _audioGoingNext.Play();
+        _timer.timerMax -= _deltaTimer;
+        _timer.Rewind();
+        _timer.isPlaying = false;
     }
     private void GoBack()
     {
+        Debug.Log("Rewound");
+        _currentEvents[_currentAction].InputEvent.Disable();
         _drawer.ClearIcons();
         _currentAction = 0;
         if (_currentTarget <= 0)
         {
             Debug.Log("Branch");
             EnterDeadzoneCallback();
+            _timer.Rewind();
+            _timer.isPlaying = true;
         }
         else
         {
@@ -156,6 +173,9 @@ public class MiniralResearchGame : MonoBehaviour
             _currentTarget--;
             _currentTargetPostion = _lineRenderer.transform.TransformPoint(_lineRenderer.GetPosition(_currentTarget));
             _character.FlyTo(_currentTargetPostion);
+            _timer.timerMax += _deltaTimer;
+            _timer.Rewind();
+            _timer.isPlaying = false;
         }
         _audioGoingBack.Play();
     }

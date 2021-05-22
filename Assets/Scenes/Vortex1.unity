@@ -499,6 +499,10 @@ PrefabInstance:
       value: SampleScene
       objectReference: {fileID: 0}
     - target: {fileID: 5694254943355528888, guid: 792db2cd45cf45a44b5695f9ca4337ef, type: 3}
+      propertyPath: _isEnter
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5694254943355528888, guid: 792db2cd45cf45a44b5695f9ca4337ef, type: 3}
       propertyPath: _sceneName
       value: Station
       objectReference: {fileID: 0}
