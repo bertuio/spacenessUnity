@@ -83,9 +83,9 @@ public class MineralResearchBoulderSpawner : MonoBehaviour
     }
     private Vector3 GetPosition(int x, int y, int z) 
     {
-        float angle = Mathf.Lerp(_startAngle, _endAngle, (float) z / (_radialSteps - 1));
-        float height = Mathf.Lerp(_bottomBorder, _topBorder, (float)y / (_heightSteps - 1));
-        float radius = Mathf.Lerp(_internalRadius, _externalRadius, (float)x / (_widthSteps - 1));
+        float angle = Mathf.Lerp(_startAngle, _endAngle, (_radialSteps==1)?.5f:(float) z / (_radialSteps - 1));
+        float height = Mathf.Lerp(_bottomBorder, _topBorder, (_heightSteps == 1) ? .5f : (float)y / (_heightSteps - 1));
+        float radius = Mathf.Lerp(_internalRadius, _externalRadius, (_widthSteps == 1) ? .5f : (float)x / (_widthSteps - 1));
         Vector3 randomize = new Vector3(Random.Range(-1f, 1), Random.Range(-1f, 1), Random.Range(-1f, 1)) * _randomizePosition;
         return _center + Vector3.up * height + Quaternion.Euler(0, angle, 0) * Vector3.right * radius + randomize;
     }

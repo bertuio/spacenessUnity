@@ -34,6 +34,7 @@ public class MineralResearchBoulder : MonoBehaviour
 
     public void Grab() 
     {
+        EventLogDisplay.display.AddEvent(Id + "_demolished");
         OnBoulderGrabbed?.Invoke(Rare);
         Destroy(gameObject);
     }

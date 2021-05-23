@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ed8429a2ec148449907b379dc17c49e, type: 3}
-  m_Name: qtWheelDown
+  m_Name: qtW
   m_EditorClassIdentifier: 
-  _image: {fileID: 21300000, guid: f997bd363deb0d74c91ccf892b01c72a, type: 3}
+  _image: {fileID: 21300000, guid: 3247f846c25abe44fa3b3e5d2976ba45, type: 3}
   _event:
     m_Name: Event
-    m_Type: 0
-    m_ExpectedControlType: Axis
-    m_Id: 1d87729d-29b6-480d-b4bb-7490f4246d90
+    m_Type: 1
+    m_ExpectedControlType: Button
+    m_Id: df96b60f-856c-4c45-9f31-8fc09f42109a
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: fd0aadd1-7c63-4c47-bd76-5a1c4b48172d
-      m_Path: <Mouse>/scroll/y
+      m_Id: 4eee3ca7-7573-4abf-afa3-9d7b7923e1c6
+      m_Path: <Keyboard>/w
       m_Interactions: 
-      m_Processors: AxisDeadzone(min=100,max=121)
+      m_Processors: 
       m_Groups: 
       m_Action: Event
       m_Flags: 0

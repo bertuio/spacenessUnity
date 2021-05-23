@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Canvas))]
 public class WidgetDrawer : MonoBehaviour
 {
+    [SerializeField] private Text _name;
+    [SerializeField] private Text _quality;
     [SerializeField] private RectTransform _widget;
     [SerializeField] private float _scaleTune;
     private RectTransform _transform;
@@ -18,6 +21,8 @@ public class WidgetDrawer : MonoBehaviour
 
     public void UpdateBoulder(MineralResearchBoulder boulder)
     {
+        _name.text = boulder.Id;
+        _quality.text = boulder.Rare?"mineral":"rock";
         _assignedBoulder = boulder;
     }
 

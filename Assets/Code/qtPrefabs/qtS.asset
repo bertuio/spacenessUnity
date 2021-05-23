@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ed8429a2ec148449907b379dc17c49e, type: 3}
-  m_Name: qtWheelUp
+  m_Name: qtS
   m_EditorClassIdentifier: 
-  _image: {fileID: 21300000, guid: 894b4d63ebec1294186f04321bd0ff9d, type: 3}
+  _image: {fileID: 21300000, guid: de702d8ec35822d44abcfff385fd6a79, type: 3}
   _event:
     m_Name: Event
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 0605bf82-50f6-4f07-9e22-62e8594ca36a
+    m_Type: 1
+    m_ExpectedControlType: Button
+    m_Id: df96b60f-856c-4c45-9f31-8fc09f42109a
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: d2b5413d-1413-4976-b8aa-adb94cae5e32
-      m_Path: <Mouse>/scroll/y
+      m_Id: 4eee3ca7-7573-4abf-afa3-9d7b7923e1c6
+      m_Path: <Keyboard>/s
       m_Interactions: 
       m_Processors: 
       m_Groups: 

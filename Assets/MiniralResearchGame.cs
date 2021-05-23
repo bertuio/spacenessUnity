@@ -39,7 +39,11 @@ public class MiniralResearchGame : MonoBehaviour
             foreach (InputControl control in device.allControls)
             {
                 if (control.name == "anyKey") continue;
-                if (device.name == "Mouse") if (control.name != "rightButton" & control.name != "leftButton") continue;
+                if (device.name == "Mouse")
+                {
+                    if (control.name != "rightButton" & control.name != "leftButton")
+                        continue;
+                }
                 if (retractionImmune.Contains(control.name)) { continue; }
                 _anyKeyAction.AddBinding(control.path, "press");
             }
