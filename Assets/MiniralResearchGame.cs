@@ -111,6 +111,8 @@ public class MiniralResearchGame : MonoBehaviour
 
     private void EnterDeadzoneCallback()
     {
+        _character.Animations.StopReverse();
+        _character.Animations.StopWalking();
         _anyKeyAction.Enable();
         _currentEvents = _generator.NewVariant();
         _drawer.DrawIcons(_currentEvents);
@@ -141,6 +143,7 @@ public class MiniralResearchGame : MonoBehaviour
 
     private void GoNext()
     {
+        _character.Animations.StartWalking();
         _anyKeyAction.Disable();
         _drawer.ClearIcons();
         _currentAction = 0;
@@ -160,6 +163,8 @@ public class MiniralResearchGame : MonoBehaviour
     }
     private void GoBack()
     {
+        _character.Animations.StartReverse();
+        _character.Animations.StartWalking();
         Debug.Log("Rewound");
         _currentEvents[_currentAction].InputEvent.Disable();
         _drawer.ClearIcons();

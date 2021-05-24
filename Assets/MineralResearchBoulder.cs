@@ -24,7 +24,6 @@ public class MineralResearchBoulder : MonoBehaviour
     {
         Id = GenerateId();
         _rotation = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * _power;
-        Debug.Log(Id);
     }
 
     private string GenerateId()

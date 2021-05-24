@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    public PlayerAnimations Animations => _movement.Animations;
     [SerializeField] private CameraController _attachedCameraController;
     [SerializeField] private PlayerMovement _movement;
     [SerializeField] private PlayerInteraction _interaction;
@@ -23,9 +24,6 @@ public class Character : MonoBehaviour
 
     private void OnEnable()
     {
-        //_interaction.OnInteractionStarted += () => _movement.Lock();
-        //_interaction.OnInteractionEnded += () => _movement.Unlock();
-        //_interaction.OnInteractionEndedForced += () => _movement.Unlock();
         _attachedCameraController.SetCameraChasingGoal(transform);
     }
 

@@ -477,6 +477,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91d2a4168ca309646acf1cbba48c3d01, type: 3}
+--- !u!95 &711638387 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3802387983960631198, guid: c74a494c39aebcd48a8bcd56681e1b96, type: 3}
+  m_PrefabInstance: {fileID: 4533606347389996118}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &727482852
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1894,6 +1899,30 @@ PrefabInstance:
     - target: {fileID: 3802387983534952149, guid: c74a494c39aebcd48a8bcd56681e1b96, type: 3}
       propertyPath: m_CullingMask.m_Bits
       value: 63
+      objectReference: {fileID: 0}
+    - target: {fileID: 4533606345533031650, guid: c74a494c39aebcd48a8bcd56681e1b96, type: 3}
+      propertyPath: _animator
+      value: 
+      objectReference: {fileID: 711638387}
+    - target: {fileID: 4533606345533031650, guid: c74a494c39aebcd48a8bcd56681e1b96, type: 3}
+      propertyPath: _reverseMax
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4533606345533031650, guid: c74a494c39aebcd48a8bcd56681e1b96, type: 3}
+      propertyPath: _blendingMax
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4533606345533031650, guid: c74a494c39aebcd48a8bcd56681e1b96, type: 3}
+      propertyPath: _reverseInertia
+      value: -0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 4533606345533031650, guid: c74a494c39aebcd48a8bcd56681e1b96, type: 3}
+      propertyPath: _blendingInertia
+      value: -0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 4533606345533031655, guid: c74a494c39aebcd48a8bcd56681e1b96, type: 3}
+      propertyPath: _flySpeed
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4533606345533031673, guid: c74a494c39aebcd48a8bcd56681e1b96, type: 3}
       propertyPath: _hint
