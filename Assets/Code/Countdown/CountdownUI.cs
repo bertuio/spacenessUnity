@@ -8,7 +8,6 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(TMP_Text))]
 public class CountdownUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private int _offset = 700;
     private float _posY;
     private int _canvasHeight;
     private Vector2 _position;
@@ -27,10 +26,10 @@ public class CountdownUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         set
         {
             _value = value;
-            _text.text = $"{_value}\n циклов осталось";
+            _text.text = $"{_value}\n ЦИКЛОВ ОСТАЛОСЬ";
         }
     }
-    private void Start()
+    private void Awake()
     {
         if (!_text)
         {
@@ -41,14 +40,17 @@ public class CountdownUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     private void FixedUpdate()
     {
-        _position = _text.rectTransform.offsetMax;
-        _position.y = (-_offset + _posY);
-        _posY = (_posY + _speed*SpeedMultiplyer) % (_canvasHeight + (_offset* 1.5f));
-        _text.rectTransform.offsetMax = _position;
+        float height = _text.rectTransform.rect.height;
+        _position = _text.rectTransform.anchoredPosition;
+        _position.y = (-_canvasHeight + _posY);
+        _posY = (_posY + _speed*SpeedMultiplyer) % (_canvasHeight + height);
+
+        _text.rectTransform.anchoredPosition = _position;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        Debug.Log("A");
         _mainColor = _text.color;
         _text.color = Color.white;
     }

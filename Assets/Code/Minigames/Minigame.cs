@@ -72,7 +72,7 @@ public class Minigame : MonoBehaviour
     private IEnumerator HandleInteraction()
     {
         SetupPlayer();
-        if (_showTutorial)
+        if (_showTutorial && _tutorial)
         {
             _tutorial.Show();
             yield return new WaitForSeconds(_tutorialDelay);
