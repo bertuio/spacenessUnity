@@ -17,6 +17,8 @@ public class Minigame : MonoBehaviour
 
     private AudioSource _audioEmitter;
 
+    protected virtual string MinigameName { get; set; } = "minigame";
+
     protected void EmitSound(AudioClip clip) 
     {
         _audioEmitter.clip = clip;
@@ -24,14 +26,16 @@ public class Minigame : MonoBehaviour
     }
     public virtual void StartGame()
     {
-        
+        EventLogDisplay.display.AddEvent($"Activating {MinigameName}");
     }
     public virtual void InterruptGame()
     {
+        EventLogDisplay.display.AddEvent($"Aborting {MinigameName}");
         DesetupPlayer();
     }
     public virtual void FinishGame()
     {
+        EventLogDisplay.display.AddEvent($"{MinigameName.ToUpper()} succeed");
         Countdown.SpeedDown();
         DesetupPlayer();
         _onMinigameFinished?.Invoke();
@@ -40,6 +44,7 @@ public class Minigame : MonoBehaviour
     }
     public virtual void FailGame()
     {
+        EventLogDisplay.display.AddEvent($"Failing {MinigameName} ...");
         DesetupPlayer();
         _interactable.OnInteractionEndedForced?.Invoke();
         if (_audioFailed) EmitSound(_audioFailed);
@@ -75,6 +80,7 @@ public class Minigame : MonoBehaviour
         if (_showTutorial && _tutorial)
         {
             _tutorial.Show();
+            EventLogDisplay.display.AddEvent("Educating ...");
             yield return new WaitForSeconds(_tutorialDelay);
             _showTutorial = false;
             _tutorial.Hide();

@@ -8,6 +8,7 @@ public class AnalizeMinigame : Minigame
     [SerializeField] private MaterialPicker _picker;
     [SerializeField] private AnalizeMaterial _display;
     [SerializeField] private AudioSource _audioMissed;
+    protected override string MinigameName { get; set; } = "Mineral anali_F62AA9Dze";
     private string _targetChemical;
     private new void Awake()
     {

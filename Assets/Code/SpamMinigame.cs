@@ -9,6 +9,7 @@ public class SpamMinigame : Minigame
     [SerializeField] private int _medianDelay;
 
     [SerializeField] private SpamSpawner _spawner;
+    protected override string MinigameName { get; set; } = "Compliance with_A8110J formalities";
 
     private void OnEnable()
     {

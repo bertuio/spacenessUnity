@@ -13,6 +13,7 @@ namespace Timetable {
         [SerializeField] private AudioClip[] _audioSwaped;
         private List<TimetableLine> _lines = new List<TimetableLine>();
 
+        protected override string MinigameName { get; set; } = "Schedule h_C2B1 planner";
         private void OnEnable()
         {
             _grabber.TryMoveDown += MoveDown;

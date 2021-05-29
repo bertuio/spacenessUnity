@@ -144,6 +144,7 @@ public class PlayerMovement : MonoBehaviour
     public void StopFly()
     {
         _animation.PlayFly();
+        _animation.StopWalking();
         SetAction(Idle);
     }
 

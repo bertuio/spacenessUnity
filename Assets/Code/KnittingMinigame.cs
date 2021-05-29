@@ -8,7 +8,7 @@ public class KnittingMinigame : Minigame
     [SerializeField] private KnittingSpawner _spawner;
     [SerializeField] private AudioClip[] _clicks;
     [SerializeField] private AudioClip[] _fails;
-
+    protected override string MinigameName { get; set; } = "RELAX_h_98C1";
     private void OnDisable()
     {
         _spawner.OnWinCondition -= FinishGame;

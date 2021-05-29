@@ -11,6 +11,7 @@ public class ElectricityMinigame : Minigame
     [SerializeField] private float _recorruptionProbability;
 
     private ElectricityLamp[,] _lamps = new ElectricityLamp[0, 0];
+    protected override string MinigameName { get; set; } = "Manual h_A01F power Control";
 
     private List<ElectricityLamp> GetDisabledLamps()
     {

@@ -7,6 +7,7 @@ public class StarshipMinigame : Minigame
     [SerializeField] private ShipControl _control;
     [SerializeField] private Space _spacePrefab;
     private Space _spaceInstance;
+    protected override string MinigameName { get; set; } = "W_xAB7291D_arp engine";
 
     public override void StartGame()
     {
