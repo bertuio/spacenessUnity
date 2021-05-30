@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 9055199937476380676}
   - component: {fileID: 8565220317881673811}
   - component: {fileID: 985986211}
+  - component: {fileID: -770914551086619209}
   m_Layer: 5
   m_Name: InteractionHint
   m_TagString: Untagged
@@ -167,3 +168,11 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!222 &-770914551086619209
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7820966904630001505}
+  m_CullTransparentMesh: 1
