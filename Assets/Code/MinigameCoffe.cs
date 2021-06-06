@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class MinigameCoffe : Minigame
 {
+    [SerializeField] private CoffeeMug _mugPrefab;
+    [SerializeField] private Transform _mugSpawnPosition;
     [SerializeField] CoffeGrabber _grabber;
 
+    private new void Awake() 
+    {
+        base.Awake();
+        _grabber.WinCondition += FinishGame;
+    }
     public override void StartGame()
     {
         _grabber.Activate();
@@ -15,6 +22,7 @@ public class MinigameCoffe : Minigame
     public override void FinishGame()
     {
         _grabber.Deactivate();
+        Instantiate(_mugPrefab, _mugSpawnPosition);
         base.FinishGame();
     }
 

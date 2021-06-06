@@ -5,14 +5,11 @@ using UnityEngine.EventSystems;
 
 public class CoffeItem : MonoBehaviour
 {
-    private float _maxSpeed = 1;
-    public Vector3 targetPosition;
-    private void Awake()
+    [SerializeField] private bool _needed;
+    public bool IsCoffee => _needed;
+    public void UpdatePosition(Vector3 position)
     {
-        targetPosition = transform.InverseTransformPoint(transform.position);
-    }
-    private void Update()
-    {
-        transform.localPosition = Vector3.MoveTowards(transform.InverseTransformPoint(transform.position), transform.InverseTransformPoint(targetPosition), _maxSpeed);
+        Debug.Log(position);
+        transform.position = position;
     }
 }

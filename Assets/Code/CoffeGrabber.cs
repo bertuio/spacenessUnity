@@ -8,6 +8,7 @@ public class CoffeGrabber : MonoBehaviour
 {
     [SerializeField] private InputAction _onLeftMouseDown, _onLeftMouseUp, _onMouseMove;
     [SerializeField] private Transform _planeDirection;
+    public event System.Action WinCondition;
     private event System.Action<InputAction.CallbackContext> _leftMouseDownCallback, _leftMouseUpCallback;
     private CoffeItem _pickedItem;
     private Vector3 _targetPositon;
@@ -73,9 +74,12 @@ public class CoffeGrabber : MonoBehaviour
         if (plane.Raycast(ray, out float point))
         {
             _targetPositon = ray.GetPoint(point);
-            _pickedItem.targetPosition = _targetPositon;
+            _targetPositon = _pickedItem.transform.InverseTransformPoint(_targetPositon);
+            _targetPositon.y = 0;
+            _targetPositon = _pickedItem.transform.TransformPoint(_targetPositon);
+            _pickedItem.UpdatePosition(_targetPositon);
+            Debug.DrawRay(ray.origin, ray.origin + ray.direction * 100, Color.red);
         }
-            
     }
 
     private void StopGrabbing() 
@@ -91,6 +95,11 @@ public class CoffeGrabber : MonoBehaviour
         {
             _onMouseMove.performed += MouseMoveCallback;
             _onMouseMove.Enable();
+            if (_pickedItem.IsCoffee)
+            {
+                WinCondition?.Invoke();
+                return;
+            }
         }
     }
 }

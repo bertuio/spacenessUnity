@@ -26404,6 +26404,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StarshipMinigame
       objectReference: {fileID: 0}
+    - target: {fileID: 2653105771958410604, guid: dcef0158262be834182e8a9ae30d5341, type: 3}
+      propertyPath: _spacePrefab
+      value: 
+      objectReference: {fileID: 2679146976604128023, guid: 6d7bc8cd3ab03e44bba29f29df5539e6, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dcef0158262be834182e8a9ae30d5341, type: 3}
 --- !u!1001 &1258071664
@@ -27486,6 +27490,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: c8f368d4f0490d44994721237229a0c8, type: 2}
+    - target: {fileID: 2933463902094521895, guid: d49045ef49465f34080cf95778c5fcf3, type: 3}
+      propertyPath: _showTutorial
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7041461832953555653, guid: d49045ef49465f34080cf95778c5fcf3, type: 3}
       propertyPath: m_Name
       value: Timetable_minigame
@@ -30372,7 +30380,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: dbc0da0c77e4ad84990d8844bd339ec7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -42866,7 +42874,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3802387983418512839, guid: c74a494c39aebcd48a8bcd56681e1b96, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -40.71
+      value: -40.48
       objectReference: {fileID: 0}
     - target: {fileID: 3802387983418512839, guid: c74a494c39aebcd48a8bcd56681e1b96, type: 3}
       propertyPath: m_LocalPosition.y
@@ -42874,7 +42882,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3802387983418512839, guid: c74a494c39aebcd48a8bcd56681e1b96, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 33.29
+      value: 34.84
       objectReference: {fileID: 0}
     - target: {fileID: 3802387983418512839, guid: c74a494c39aebcd48a8bcd56681e1b96, type: 3}
       propertyPath: m_LocalRotation.w
