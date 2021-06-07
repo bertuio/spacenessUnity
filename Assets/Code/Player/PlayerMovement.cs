@@ -85,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void ApplyBodyRotation() 
     {
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, _targetRotation, _rotationInertion);
+        transform.rotation = Quaternion.Lerp(_controller.transform.rotation, _targetRotation, _rotationInertion);
     }
     private bool UpdateStepTimer() 
     {

@@ -11,15 +11,15 @@ public class Door : MonoBehaviour
     public void OpenDoor()
     {
         _moveUp += MoveUp;
-        if (_audio) _audio.Play();
+        _audio.Play();
     }
 
     private void MoveUp()
     {
-        transform.position += transform.TransformVector(new Vector3(0, 0, -_doorSpeed));
+        transform.position += transform.TransformVector(new Vector3(_doorSpeed,0,0));
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         _moveUp?.Invoke();
     }
