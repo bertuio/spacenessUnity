@@ -53,7 +53,10 @@ public class Minigame : MonoBehaviour
     private void SetupPlayer()
     {
         CustomCursor.ShowCursor();
+        CustomCursor.Mute();
         FindObjectOfType<Character>().LockMovementAndRotation();
+        Debug.LogError(Camera.main.gameObject.GetComponent<CameraController>());
+        Debug.LogError(_minigameCamera);
         Camera.main.gameObject.GetComponent<CameraController>().SimulateCamera(_minigameCamera);
     }
 

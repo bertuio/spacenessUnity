@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Character : MonoBehaviour
 {
@@ -25,6 +26,12 @@ public class Character : MonoBehaviour
     private void OnEnable()
     {
         _attachedCameraController.SetCameraChasingGoal(transform);
+
+        Debug.Log("Teleportation to return point!!!");
+        if (SceneManager.GetActiveScene().buildIndex == Vortex.SceneIdOfReturn)
+        {
+            transform.position = Vortex.NextReturnPosition;
+        }
     }
 
     public void FlyTo(Vector3 position)

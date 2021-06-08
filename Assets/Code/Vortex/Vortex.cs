@@ -10,13 +10,20 @@ public class Vortex : MonoBehaviour
     [SerializeField] private bool _isEnter = true;
     [SerializeField] private string _sceneName = "Vortex1";
     [SerializeField] private float _entranceRadius;
+
+    public Transform _returnTranform;
+    private static Vector3 _nextReturnPosition;
+
+    public static int SceneIdOfReturn { get; private set; } = -1;
+    public static Vector3 NextReturnPosition => _nextReturnPosition;
+
     private SphereCollider _collider;
     private const int CAMERA_FOV_ADDITION = 30;
     private const float MIN_TIMESCALE = .4f;
 
     private void Start()
     {
-        _collider = GetComponent<SphereCollider>();
+        _collider = GetComponent<SphereCollider>(); 
     }
 
     private void OnDrawGizmosSelected()
@@ -53,6 +60,8 @@ public class Vortex : MonoBehaviour
         if (_isEnter)
         {
             Countdown.Pause();
+            SceneIdOfReturn = SceneManager.GetActiveScene().buildIndex;
+            _nextReturnPosition = _returnTranform.position;
         }
         else 
         {

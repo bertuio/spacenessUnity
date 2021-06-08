@@ -29,18 +29,21 @@ public class IngameMenu : MonoBehaviour
 
     private void Activate(InputAction.CallbackContext context) 
     {
-        if (_menuCanvas.enabled) 
+        if (_menuCanvas)
         {
-            Continue();
-            return;
+            if (_menuCanvas.enabled)
+            {
+                Continue();
+                return;
+            }
+
+            CustomCursor.ShowCursor();
+            Character.GetCharacter().LockMovementAndRotation();
+            _timescale = Time.timeScale;
+            Time.timeScale = 0;
+
+            _menuCanvas.enabled = true;
         }
-
-        CustomCursor.ShowCursor();
-        Character.GetCharacter().LockMovementAndRotation();
-        _timescale = Time.timeScale;
-        Time.timeScale = 0;
-
-        _menuCanvas.enabled = true;
     }
 
     public void Exit()

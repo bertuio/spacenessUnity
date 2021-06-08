@@ -28,6 +28,9 @@ public class MineralResearchBoulderSpawner : MonoBehaviour
         if (!Application.isPlaying)
             return;
 
+        if (!Application.isEditor)
+            GeneratePoints();
+
         int randI = Random.Range(0, _radialSteps);
         int randJ = Random.Range(0, _heightSteps);
         int randK = Random.Range(0, _widthSteps);

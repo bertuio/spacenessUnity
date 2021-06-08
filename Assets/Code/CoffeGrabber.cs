@@ -24,6 +24,7 @@ public class CoffeGrabber : MonoBehaviour
     }
     public void Activate()
     {
+        Debug.Log("Activating grabber");
         _onLeftMouseDown.Enable();
         _onLeftMouseUp.Enable();
         _onMouseMove.Disable();
