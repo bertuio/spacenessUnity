@@ -50,14 +50,16 @@ public class Minigame : MonoBehaviour
         if (_audioFailed) EmitSound(_audioFailed);
     }
 
-    private void SetupPlayer() 
+    private void SetupPlayer()
     {
+        CustomCursor.ShowCursor();
         FindObjectOfType<Character>().LockMovementAndRotation();
         Camera.main.gameObject.GetComponent<CameraController>().SimulateCamera(_minigameCamera);
     }
 
-    private void DesetupPlayer() 
+    private void DesetupPlayer()
     {
+        CustomCursor.HideCursor();
         Camera.main.GetComponent<CameraController>().ForceChasing();
         FindObjectOfType<Character>().UnlockMovement();
     }

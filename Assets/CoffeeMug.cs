@@ -2,17 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoffeeMug : MonoBehaviour
+public class CoffeeMug : Interactable
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void EndInteraction()
     {
-        
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void StartInteraction()
     {
-        
+        Countdown.SpeedUp();
+        Countdown.SpeedUp();
+        Countdown.SpeedUp();
+        Countdown.SpeedUp();
+        Countdown.SpeedUp();
+
+        for (int i = 0; i < 5; i++) 
+        {
+            EventLogDisplay.display.AddEvent("YOU FEEL MUCH BETTER");
+        }
+
+        Destroy(gameObject);
     }
 }

@@ -470,9 +470,21 @@ MonoBehaviour:
   _interactable: {fileID: 4561834836253408460}
   _onMinigameFinished:
     m_PersistentCalls:
-      m_Calls: []
-  _audioSucceed: {fileID: 8300000, guid: 67de53e399c33414c9d512d5ce5b9355, type: 3}
-  _audioFailed: {fileID: 8300000, guid: 740a2fd6361b82c4bbd42b27313c86ca, type: 3}
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Door, Assembly-CSharp
+        m_MethodName: OpenDoor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _audioSucceed: {fileID: 8300000, guid: f7a243b02b6833f4fb814373187876a6, type: 3}
+  _audioFailed: {fileID: 8300000, guid: 2fc26e428cc5dd64c91ae3b4894fbed3, type: 3}
   _tutorial: {fileID: 281338253261606300}
   _showTutorial: 1
   _tutorialDelay: 10
@@ -506,9 +518,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d5749a3fb3461f845be9bb1deca743ce, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 204f6118a177be54388e3dd95524e3f7, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.088
+  m_Volume: 0.167
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1964,55 +1976,55 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8459766343363656749, guid: cb788457a8ca06f4595736daa1442ef2, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.0052072355
+      value: 0.004309716
       objectReference: {fileID: 0}
     - target: {fileID: 8459766343363656749, guid: cb788457a8ca06f4595736daa1442ef2, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.005137854
+      value: 0.004252293
       objectReference: {fileID: 0}
     - target: {fileID: 8459766343363656749, guid: cb788457a8ca06f4595736daa1442ef2, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.018163936
+      value: 0.0150332
       objectReference: {fileID: 0}
     - target: {fileID: 8459766343363656749, guid: cb788457a8ca06f4595736daa1442ef2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.00001005395
+      value: 0.00071
       objectReference: {fileID: 0}
     - target: {fileID: 8459766343363656749, guid: cb788457a8ca06f4595736daa1442ef2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.008629984
+      value: 0.00863
       objectReference: {fileID: 0}
     - target: {fileID: 8459766343363656749, guid: cb788457a8ca06f4595736daa1442ef2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0316197
+      value: 0.03162
       objectReference: {fileID: 0}
     - target: {fileID: 8459766343363656749, guid: cb788457a8ca06f4595736daa1442ef2, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.0010401817
+      value: -0.0011458357
       objectReference: {fileID: 0}
     - target: {fileID: 8459766343363656749, guid: cb788457a8ca06f4595736daa1442ef2, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0005482806
+      value: -0.00026393417
       objectReference: {fileID: 0}
     - target: {fileID: 8459766343363656749, guid: cb788457a8ca06f4595736daa1442ef2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.46639717
+      value: 0.2245858
       objectReference: {fileID: 0}
     - target: {fileID: 8459766343363656749, guid: cb788457a8ca06f4595736daa1442ef2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.8845747
+      value: 0.9744537
       objectReference: {fileID: 0}
     - target: {fileID: 8459766343363656749, guid: cb788457a8ca06f4595736daa1442ef2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -55.601
+      value: -25.957
       objectReference: {fileID: 0}
     - target: {fileID: 8459766343363656749, guid: cb788457a8ca06f4595736daa1442ef2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -0.197
+      value: -0.066
       objectReference: {fileID: 0}
     - target: {fileID: 8459766343363656749, guid: cb788457a8ca06f4595736daa1442ef2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 180.238
+      value: 180.15
       objectReference: {fileID: 0}
     - target: {fileID: 8459766343363656750, guid: cb788457a8ca06f4595736daa1442ef2, type: 3}
       propertyPath: m_Name

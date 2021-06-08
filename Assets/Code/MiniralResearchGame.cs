@@ -14,7 +14,7 @@ public class MiniralResearchGame : MonoBehaviour
     [SerializeField] private ResearchTurnDeadzone _deadzonePrefab;
     [SerializeField] private ResearchUiDrawer _drawer;
     [SerializeField] private InputAction _anyKeyAction;
-    [SerializeField] private AudioSource _audioGoingNext, _audioSucceed, _audioGoingBack;
+    [SerializeField] private AudioSource _audioGoingNext, _audioSucceed, _audioGoingBack, _audioBoulderGot, _audioQte;
     [SerializeField] private MineralResearchBoulderGrabber _grabber;
     [SerializeField] private UnityEvent _minigameSucceedCallback;
     [SerializeField] private List<string> retractionImmune;
@@ -32,7 +32,7 @@ public class MiniralResearchGame : MonoBehaviour
     {
         _enter.OnEnteted += CharacterEnteredCallback;
         _anyKeyAction.started += CheckMissQte;
-        _grabber.OnRareBoulderGot += _minigameSucceedCallback.Invoke;
+        _grabber.OnRareBoulderGot += RareBoulderGotCallback;
 
         foreach (InputDevice device in InputSystem.devices)
         {
@@ -48,6 +48,15 @@ public class MiniralResearchGame : MonoBehaviour
                 _anyKeyAction.AddBinding(control.path, "press");
             }
         }
+    }
+
+    private void RareBoulderGotCallback() 
+    {
+        if (_audioBoulderGot) 
+        {
+            _audioBoulderGot.Play();
+        }
+        _minigameSucceedCallback.Invoke();
     }
 
     private void OnDisable()
@@ -66,17 +75,23 @@ public class MiniralResearchGame : MonoBehaviour
         if (context.control.path != _currentEvents[_currentAction].InputEvent.bindings[0].path.Replace("<", "/").Replace(">", ""))
         {
             GoBack();
+            return;
         }
+
+        if (_audioQte)
+            _audioQte.Play();
     }
 
     private void CharacterEnteredCallback(Character character)
     {
-        character.GetComponent<CapsuleCollider>().enabled = false;
         StartGame(character);
     }
 
     private void StartGame(Character character)
     {
+        CustomCursor.ShowCursor();
+        CustomCursor.Mute();
+        character.GetComponent<CapsuleCollider>().enabled = false;
         _timer.OnTimeExceeded += GoBack;
         _character = character;
         _character.LockMovement();
@@ -89,6 +104,9 @@ public class MiniralResearchGame : MonoBehaviour
 
     private void Finishgame()
     {
+        _audioSucceed.Play();
+        CustomCursor.HideCursor();
+        _character.GetComponent<CapsuleCollider>().enabled = true;
         _timer.OnTimeExceeded -= GoBack;
         _anyKeyAction.Disable();
         _character.UnlockMovement();
@@ -151,7 +169,6 @@ public class MiniralResearchGame : MonoBehaviour
         if (_currentTarget >= _lineRenderer.positionCount)
         {
             Finishgame();
-            _audioSucceed.Play();
             return;
         }
         _currentTargetPostion = _lineRenderer.transform.TransformPoint(_lineRenderer.GetPosition(_currentTarget));

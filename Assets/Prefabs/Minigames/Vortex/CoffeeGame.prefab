@@ -1361,7 +1361,7 @@ GameObject:
   - component: {fileID: 2561104566268843804}
   - component: {fileID: 5774232024016420738}
   m_Layer: 0
-  m_Name: Minigame
+  m_Name: CoffeeGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1511,6 +1511,8 @@ MonoBehaviour:
   _tutorial: {fileID: 0}
   _showTutorial: 0
   _tutorialDelay: 0
+  _mugPrefab: {fileID: 0}
+  _mugSpawnPosition: {fileID: 0}
   _grabber: {fileID: 5774232024016420738}
 --- !u!82 &2561104566268843804
 AudioSource:
