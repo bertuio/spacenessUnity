@@ -27,9 +27,9 @@ public class Character : MonoBehaviour
     {
         _attachedCameraController.SetCameraChasingGoal(transform);
 
-        Debug.Log("Teleportation to return point!!!");
         if (SceneManager.GetActiveScene().buildIndex == Vortex.SceneIdOfReturn)
         {
+            Debug.Log("Teleportation to return point!!!");
             transform.position = Vortex.NextReturnPosition;
         }
     }

@@ -14,7 +14,7 @@ public class CameraController : MonoBehaviour
     private float _angularSmoothRate;
 
     [SerializeField]
-    private int _baseFov;
+    private float _baseFov;
 
     private float defaultFov;
     private float _nodAngle;
@@ -29,7 +29,7 @@ public class CameraController : MonoBehaviour
     /// <summary>
     /// Sets additive Camera Fov smoothly
     /// </summary>
-    public void SetAdditiveFov(int angle) 
+    public void SetAdditiveFov(float angle) 
     {
         targetFov = _baseFov + angle;
     }
@@ -74,6 +74,7 @@ public class CameraController : MonoBehaviour
     {
         Vector3 newCameraPosition = Vector3.Lerp(transform.position, _minigameCamera.transform.position, _linearSmoothRate);
         transform.position = newCameraPosition;
+        //camera.fieldOfView = _minigameCamera.GetComponent<Camera>().fieldOfView;
         transform.rotation = Quaternion.Lerp(transform.rotation, _minigameCamera.transform.rotation, _angularSmoothRate);
     }
 

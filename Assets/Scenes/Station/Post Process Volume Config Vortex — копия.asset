@@ -308,12 +308,12 @@ MonoBehaviour:
     min: 0
   normalThreshold:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 44.394493}
+    m_Value: {x: 29.402367, y: 328.41815}
     min: 0
     max: 360
   depthThreshold:
     m_OverrideState: 1
-    m_Value: {x: 0, y: 0.037576035}
+    m_Value: {x: 0, y: 0.40575486}
     min: 0
     max: 1
   color:
@@ -386,13 +386,13 @@ MonoBehaviour:
   m_AdvancedMode: 0
   shadows:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 0.87934744, z: 0.9516328, w: -0.13200729}
+    m_Value: {x: 1, y: 0.77383226, z: 0.96519417, w: -0.13200729}
   midtones:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 1, z: 1, w: 0.2115733}
+    m_Value: {x: 0.95328647, y: 0.9773793, z: 1, w: 0.2115733}
   highlights:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 1, z: 1, w: -0.3381558}
+    m_Value: {x: 0.90925574, y: 0.9196454, z: 1, w: -0.18985076}
   shadowsStart:
     m_OverrideState: 0
     m_Value: 0
